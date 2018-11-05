@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00A5D97A218D519C004C137B /* SetBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5D979218D519C004C137B /* SetBrain.swift */; };
 		8253DA02215994A700684C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA01215994A700684C13 /* AppDelegate.swift */; };
 		8253DA07215994A700684C13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA05215994A700684C13 /* Main.storyboard */; };
 		8253DA09215994AA00684C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA08215994AA00684C13 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00A5D979218D519C004C137B /* SetBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBrain.swift; sourceTree = "<group>"; };
 		8253D9FE215994A700684C13 /* PlaySet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaySet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8253DA01215994A700684C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8253DA06215994A700684C13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				82E0CF6F21697E7A0097198C /* PlayingCard.swift */,
 				82E0CF71216981180097198C /* PlayingCardDeck.swift */,
 				82E0CF80216AE7950097198C /* PlayingSet.swift */,
+				00A5D979218D519C004C137B /* SetBrain.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				82E0CF772169BFFF0097198C /* CoreNavigation+Extension.swift in Sources */,
 				82E0CF81216AE7950097198C /* PlayingSet.swift in Sources */,
 				8253DA182159C53B00684C13 /* RGBValue.swift in Sources */,
+				00A5D97A218D519C004C137B /* SetBrain.swift in Sources */,
 				82E0CF7F216A7A890097198C /* UIView+Extension.swift in Sources */,
 				82E0CF7B2169C8800097198C /* CoreNavigationController.swift in Sources */,
 				8253DA1A2159C69900684C13 /* AnchorLayout.swift in Sources */,
@@ -371,7 +375,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UP5S927B5L;
+				DEVELOPMENT_TEAM = 8J9K8HRZYY;
 				INFOPLIST_FILE = "$(SRCROOT)/PlaySet/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -389,7 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UP5S927B5L;
+				DEVELOPMENT_TEAM = 8J9K8HRZYY;
 				INFOPLIST_FILE = "$(SRCROOT)/PlaySet/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

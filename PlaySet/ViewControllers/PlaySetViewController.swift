@@ -19,32 +19,45 @@ class PlaySetViewController: UIViewController {
         
     // MARK: Private Properties
     private var deck = PlayingCardDeck()
+    private var setBrain: SetBrain? // fix later
 
     // MARK: Action Methods
     @IBAction func touchCard(_ sender: UIButton) {
         // TODO: Add an Array to use hint: contains and indexOf: array methods
         // will also been to make have to make your data type Equatable idk which
+        let cardButtons = startingCardsButtons + remainingCardsButtons
+        if let cardNumber = cardButtons.index(of: sender) {
+            setBrain?.chooseCard(at: cardNumber)
+        }
         
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
-        
+        // TODO: deal from the remainingCards pile
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
+        startNewGame()
     }
     
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        startNewGame()
         setupUI()
         
         for _ in startingCardsButtons {
-            if let card = deck.draw() {
-                print("\(card)")
+            if let card = setBrain?.draw() {
+                print("cards: \(card)")
             }
         }
+    }
+    
+    private func startNewGame() {
+        let totalOfNumberOfPairs = ((startingCardsButtons.count + remainingCardsButtons.count) + 1) / 2
+        setBrain = SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs)
+        print("numerOfPairs: \(SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs))")
     }
     
     // MARK: Private methods
@@ -62,9 +75,6 @@ class PlaySetViewController: UIViewController {
             button.isHidden = true
         }
     }
-    
-    private func resetSelectedButtons() {
-        
-    }
+
 
 }

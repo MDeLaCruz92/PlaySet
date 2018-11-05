@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Card: Equatable {
+struct Card: Hashable {
     
     private var identifier: Int
     
