@@ -19,7 +19,10 @@ class PlaySetViewController: UIViewController {
         
     // MARK: Private Properties
     private var deck = PlayingCardDeck()
-    private var setBrain: SetBrain? // fix later
+    private var setBrain = SetBrain(numberOfPairsOfCards: 3) // TODO: Fix this D:
+    
+    private let selectionLimit = 3
+    private let dealCardsAmount = 3
 
     // MARK: Action Methods
     @IBAction func touchCard(_ sender: UIButton) {
@@ -27,13 +30,23 @@ class PlaySetViewController: UIViewController {
         // will also been to make have to make your data type Equatable idk which
         let cardButtons = startingCardsButtons + remainingCardsButtons
         if let cardNumber = cardButtons.index(of: sender) {
-            setBrain?.chooseCard(at: cardNumber)
+            setBrain.chooseCard(at: cardNumber)
         }
         
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
         // TODO: deal from the remainingCards pile
+        var count = 0
+        remainingCardsButtons.forEach { (button) in
+            if count < dealCardsAmount {
+                if button.isHidden {
+                    button.isHidden = false
+                    count += 1
+                }
+            }
+        }
+        count = 0
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
@@ -48,9 +61,23 @@ class PlaySetViewController: UIViewController {
         setupUI()
         
         for _ in startingCardsButtons {
-            if let card = setBrain?.draw() {
+            if let card = setBrain.draw() {
                 print("cards: \(card)")
             }
+        }
+    }
+    
+    // MARK: Private methods
+    private func setupUI() {
+        view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        
+        startingCardsButtons.forEach { button in
+            button.setupButtonUI()
+        }
+        
+        remainingCardsButtons.forEach { button in
+            button.setupButtonUI()
+            button.isHidden = true
         }
     }
     
@@ -59,22 +86,5 @@ class PlaySetViewController: UIViewController {
         setBrain = SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs)
         print("numerOfPairs: \(SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs))")
     }
-    
-    // MARK: Private methods
-    private func setupUI() {
-        view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-        
-        startingCardsButtons.forEach { button in
-            button.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-            button.setTitleColor(.white, for: .normal)
-            button.layer.cornerRadius = 8.0
-        }
-        
-        remainingCardsButtons.forEach { button in
-            button.isEnabled = false
-            button.isHidden = true
-        }
-    }
-
 
 }

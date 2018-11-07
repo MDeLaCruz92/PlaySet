@@ -10,11 +10,4 @@ import UIKit
 
 class CoreNavigationController: UINavigationController {
     
-//    var isPhone: Bool {
-//        return UIDevice.current.userInterfaceIdiom == .phone
-//    }
-//
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        return isPhone ? .portrait : .landscape
-//    }
 }

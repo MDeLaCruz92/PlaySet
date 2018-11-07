@@ -12,13 +12,25 @@ import Foundation
 struct SetBrain {
     
     private(set) var setCards = [PlayingSet]()
+    private(set) var selectedCards = [Int]()
 
-    static let  matchPoints = 2
+    static let matchPoints = 2
     static let misMatchPenalty = 1
     
-    mutating func chooseCard(at Index: Int)  {
+    private let selectionLimit = 3
+    
+    mutating func chooseCard(at index: Int)  {
         // check if cards match
-        
+        // select 3 cards and then check if they are a match
+        // how can we do this? maybe we need the equatable(like int and strings do) but also need a enum to verify if they are the same??
+        if selectedCards.count < selectionLimit {
+            selectedCards.append(index)
+        }
+        print("selectedCards: \(selectedCards)")
+
+        if selectedCards.count == 3 {
+            selectedCards = [Int]()
+        }
     }
     
     mutating func draw() -> PlayingSet? {

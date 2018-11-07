@@ -9,16 +9,66 @@
 import Foundation
 
 // MARK: This can be determined as PlayingCard
-struct PlayingSet: Hashable {
+struct PlayingSet { // TODO: Playing around with the dictionary, going to actually may need to make this Equatable and work with that
     
-    enum Shape  {
+    enum Symbol: CaseIterable {
         case triangle
         case circle
         case square
+        
+        case red
+        case blue
+        case green
+        
+        case stripe
+        case notFilled
+        case filled
+        
+        case single
+        case double
+        case triple
+        
+    }
+    
+    enum Shape {
+        case triangle
+        case square
+        case circle
+    }
+    
+    enum Amount {
+        case one
+        case two
+        case three
+    }
+    
+    enum Shading {
+        case filled
+        case notFilled
+        case striped
+    }
+    
+    enum Color {
+        case blue
+        case red
+        case green
     }
     
     
+    typealias ProperMatches = (shape: Shape, color: Color, amount: Amount, style: Shading)
+    
+    let properMatches: [Int: ProperMatches] = [
+        1: (Shape.circle, Color.blue, Amount.two, Shading.filled)
+    ]
+    
 }
+
+/*
+ What is a SET?
+ 
+ A SET is three cards where each feature, when looked at individually, is either all the same OR all different. Each card contains four features: color
+ (red, purple or green), shape (oval, squiggle or diamond), number (one, two or three) and shading (solid, striped or outlined).
+ */
 
 /*
  Set Game:
@@ -28,7 +78,6 @@ struct PlayingSet: Hashable {
 -  It has a deck of cards from which it is dealing
  - It probably wants to keep track of which cards have already been matched
  */
-
 
 /*
  It’d probably good MVC design not to hardwire specific color names or shape names

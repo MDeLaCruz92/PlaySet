@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00A5D97A218D519C004C137B /* SetBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5D979218D519C004C137B /* SetBrain.swift */; };
+		821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F20C121928520008DEC47 /* UIButton+Extension.swift */; };
 		8253DA02215994A700684C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA01215994A700684C13 /* AppDelegate.swift */; };
 		8253DA07215994A700684C13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA05215994A700684C13 /* Main.storyboard */; };
 		8253DA09215994AA00684C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA08215994AA00684C13 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		00A5D979218D519C004C137B /* SetBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBrain.swift; sourceTree = "<group>"; };
+		821F20C121928520008DEC47 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		8253D9FE215994A700684C13 /* PlaySet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaySet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8253DA01215994A700684C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8253DA06215994A700684C13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				82E0CF762169BFFF0097198C /* CoreNavigation+Extension.swift */,
 				82E0CF7E216A7A890097198C /* UIView+Extension.swift */,
+				821F20C121928520008DEC47 /* UIButton+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				82E0CF81216AE7950097198C /* PlayingSet.swift in Sources */,
 				8253DA182159C53B00684C13 /* RGBValue.swift in Sources */,
 				00A5D97A218D519C004C137B /* SetBrain.swift in Sources */,
+				821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */,
 				82E0CF7F216A7A890097198C /* UIView+Extension.swift in Sources */,
 				82E0CF7B2169C8800097198C /* CoreNavigationController.swift in Sources */,
 				8253DA1A2159C69900684C13 /* AnchorLayout.swift in Sources */,
