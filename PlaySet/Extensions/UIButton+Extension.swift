@@ -14,4 +14,15 @@ extension UIButton {
         self.setTitleColor(.white, for: .normal)
         self.layer.cornerRadius = 8.0
     }
+    
+    func applyTouchSelectionUI() {
+        self.layer.borderWidth = 3.0
+        self.layer.borderColor = UIColor.blue.cgColor
+    }
+    
+    func applyTouchDeselectionUI() {
+        self.layer.borderWidth = 0.0
+        self.layer.borderColor = UIColor.white.cgColor
+    }
 }
+

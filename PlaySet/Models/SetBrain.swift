@@ -12,25 +12,17 @@ import Foundation
 struct SetBrain {
     
     private(set) var setCards = [PlayingSet]()
-    private(set) var selectedCards = [Int]()
+    private(set) var selectedCards = Set<Int>()
+    private let selectionLimit = 3
 
     static let matchPoints = 2
     static let misMatchPenalty = 1
-    
-    private let selectionLimit = 3
     
     mutating func chooseCard(at index: Int)  {
         // check if cards match
         // select 3 cards and then check if they are a match
         // how can we do this? maybe we need the equatable(like int and strings do) but also need a enum to verify if they are the same??
-        if selectedCards.count < selectionLimit {
-            selectedCards.append(index)
-        }
-        print("selectedCards: \(selectedCards)")
-
-        if selectedCards.count == 3 {
-            selectedCards = [Int]()
-        }
+        selectCards(index)
     }
     
     mutating func draw() -> PlayingSet? {
@@ -40,19 +32,28 @@ struct SetBrain {
             return nil
         }
     }
-        
-    init(numberOfPairsOfCards: Int) {
-        for _ in 0..<numberOfPairsOfCards {
-            let card = PlayingSet()
-            setCards += [card, card, card]
+    
+    private mutating func selectCards(_ index: Int) {
+        if selectedCards.count < selectionLimit {
+            selectedCards.insert(index)
         }
-        
-        var cardsShuffled = [PlayingSet]()
-        for _ in setCards.indices {
-            cardsShuffled.append(setCards.remove(at: setCards.count.arc4random))
+        if selectedCards.count == selectionLimit {
+            selectedCards = []
         }
-        setCards = cardsShuffled
     }
+        
+//    init(numberOfPairsOfCards: Int) {
+//        for _ in 0..<numberOfPairsOfCards {
+//            let card = PlayingSet()
+//            setCards += [card, card, card]
+//        }
+//        
+//        var cardsShuffled = [PlayingSet]()
+//        for _ in setCards.indices {
+//            cardsShuffled.append(setCards.remove(at: setCards.count.arc4random))
+//        }
+//        setCards = cardsShuffled
+//    }
     
 }
 

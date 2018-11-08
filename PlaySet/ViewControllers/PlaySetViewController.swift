@@ -19,7 +19,8 @@ class PlaySetViewController: UIViewController {
         
     // MARK: Private Properties
     private var deck = PlayingCardDeck()
-    private var setBrain = SetBrain(numberOfPairsOfCards: 3) // TODO: Fix this D:
+    private var setBrain = SetBrain()
+    private var selectedCards = Set<UIButton>()
     
     private let selectionLimit = 3
     private let dealCardsAmount = 3
@@ -31,8 +32,8 @@ class PlaySetViewController: UIViewController {
         let cardButtons = startingCardsButtons + remainingCardsButtons
         if let cardNumber = cardButtons.index(of: sender) {
             setBrain.chooseCard(at: cardNumber)
+            cardSelectionResult(button: sender)
         }
-        
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
@@ -68,6 +69,28 @@ class PlaySetViewController: UIViewController {
     }
     
     // MARK: Private methods
+    private func cardSelectionResult(button: UIButton) {
+        deselectAllCardsIfNescessary()
+        
+        if selectedCards.contains(button) {
+            button.applyTouchDeselectionUI()
+            selectedCards.remove(button)
+        } else if selectedCards.count < selectionLimit {
+            button.applyTouchSelectionUI()
+            selectedCards.insert(button)
+        }
+        print("*** selectedCards: \(selectedCards.count)")
+    }
+    
+    private func deselectAllCardsIfNescessary() {
+        if selectedCards.count == selectionLimit {
+            selectedCards.forEach { cardButton in
+                cardButton.applyTouchDeselectionUI()
+            }
+            selectedCards = []
+        }
+    }
+    
     private func setupUI() {
         view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
         
@@ -82,9 +105,9 @@ class PlaySetViewController: UIViewController {
     }
     
     private func startNewGame() {
-        let totalOfNumberOfPairs = ((startingCardsButtons.count + remainingCardsButtons.count) + 1) / 2
-        setBrain = SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs)
-        print("numerOfPairs: \(SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs))")
+//        let totalOfNumberOfPairs = ((startingCardsButtons.count + remainingCardsButtons.count) + 1) / 2
+//        setBrain = SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs)
+//        print("numerOfPairs: \(SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs))")
     }
 
 }

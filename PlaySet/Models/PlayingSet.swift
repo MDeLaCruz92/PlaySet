@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: This can be determined as PlayingCard
-struct PlayingSet { // TODO: Playing around with the dictionary, going to actually may need to make this Equatable and work with that
+struct PlayingSet: Hashable { // TODO: Playing around with the dictionary, going to actually may need to make this Equatable and work with that
     
     enum Symbol: CaseIterable {
         case triangle
@@ -53,14 +53,6 @@ struct PlayingSet { // TODO: Playing around with the dictionary, going to actual
         case red
         case green
     }
-    
-    
-    typealias ProperMatches = (shape: Shape, color: Color, amount: Amount, style: Shading)
-    
-    let properMatches: [Int: ProperMatches] = [
-        1: (Shape.circle, Color.blue, Amount.two, Shading.filled)
-    ]
-    
 }
 
 /*
