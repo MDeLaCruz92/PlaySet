@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,28 +52,28 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxc-i8-sIb">
                                     <rect key="frame" x="0.0" y="0.0" width="70.666666666666671" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="Psg-x4-ytI"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-Gg-VOr">
                                     <rect key="frame" x="90.666666666666671" y="0.0" width="71.000000000000014" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="■"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="f2o-rE-p7D"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOc-Fe-MQ2">
                                     <rect key="frame" x="181.66666666666666" y="0.0" width="70.666666666666657" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="● ● ●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="Zjz-KW-994"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIq-Mg-z1V">
                                     <rect key="frame" x="272.33333333333331" y="0.0" width="70.666666666666686" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲ ▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="gwo-do-JLg"/>
                                     </connections>
@@ -88,28 +88,28 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2i-9u-SgT">
                                     <rect key="frame" x="0.0" y="0.0" width="70.666666666666671" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="■"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="w1N-iM-IIH"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zU0-fG-aG6">
                                     <rect key="frame" x="90.666666666666671" y="0.0" width="71.000000000000014" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲ ▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="4BF-AE-gmT"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuT-7E-3aY">
                                     <rect key="frame" x="181.66666666666666" y="0.0" width="70.666666666666657" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="■ ■ ■"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="nW6-qe-EJ0"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHa-FL-Wdg">
                                     <rect key="frame" x="272.33333333333331" y="0.0" width="70.666666666666686" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲ ▲ ▲ "/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="mvw-hA-KAt"/>
                                     </connections>
@@ -124,28 +124,28 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vu3-fl-YBp">
                                     <rect key="frame" x="0.0" y="0.0" width="70.666666666666671" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲ ▲ ▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="9VM-IV-gua"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbj-4x-E4u">
                                     <rect key="frame" x="90.666666666666671" y="0.0" width="71.000000000000014" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="● ● ●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="NaW-fb-rOJ"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPG-eE-JnY">
                                     <rect key="frame" x="181.66666666666666" y="0.0" width="70.666666666666657" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="■ ■"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="ZJn-OW-hp7"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPj-Oj-pXU">
                                     <rect key="frame" x="272.33333333333331" y="0.0" width="70.666666666666686" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="vNu-f6-s4V"/>
                                     </connections>
@@ -160,28 +160,28 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76a-KS-czq">
                                     <rect key="frame" x="0.0" y="0.0" width="70.666666666666671" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="MPV-VJ-tz1"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sW-gz-J3f">
                                     <rect key="frame" x="90.666666666666671" y="0.0" width="71.000000000000014" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="43r-Of-1ie"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Go-Aw-e6D">
                                     <rect key="frame" x="181.66666666666666" y="0.0" width="70.666666666666657" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="■ ■ ■"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="l6H-fJ-Mgn"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNO-eb-620">
                                     <rect key="frame" x="272.33333333333331" y="0.0" width="70.666666666666686" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="● ●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="PNm-m8-9Hz"/>
                                     </connections>
@@ -196,28 +196,28 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsE-k0-Ucb">
                                     <rect key="frame" x="0.0" y="0.0" width="70.666666666666671" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="D1D-gw-Usd"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7y4-MR-Qe4">
                                     <rect key="frame" x="90.666666666666671" y="0.0" width="71.000000000000014" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="● ●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="WmC-mA-WEM"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IH9-sj-duJ">
                                     <rect key="frame" x="181.66666666666666" y="0.0" width="70.666666666666657" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲ ▲ ▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="Gcz-1u-fgG"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FN4-Qs-aC0">
                                     <rect key="frame" x="272.33333333333331" y="0.0" width="70.666666666666686" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="● ● ●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="6Ow-kh-YnY"/>
                                     </connections>
@@ -232,28 +232,28 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXL-JF-O2e">
                                     <rect key="frame" x="0.0" y="0.0" width="70.666666666666671" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="● ● ●"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="w9D-Wq-doR"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMc-I0-HJ9">
                                     <rect key="frame" x="90.666666666666671" y="0.0" width="71.000000000000014" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="■ ■ ■"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="9PT-SF-yfv"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dF-ZG-EzO">
                                     <rect key="frame" x="181.66666666666666" y="0.0" width="70.666666666666657" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="▲ ▲"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="1T5-Sj-EZm"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARh-Yo-7Qj">
                                     <rect key="frame" x="272.33333333333331" y="0.0" width="70.666666666666686" height="40"/>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" title="■"/>
                                     <connections>
                                         <action selector="touchCard:" destination="-1" eventType="touchUpInside" id="RRL-aQ-BvX"/>
                                     </connections>

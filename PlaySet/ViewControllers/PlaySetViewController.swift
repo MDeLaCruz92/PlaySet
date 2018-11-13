@@ -19,7 +19,7 @@ class PlaySetViewController: UIViewController {
         
     // MARK: Private Properties
     private var deck = PlayingCardDeck()
-    private var setBrain = SetBrain()
+    private var setBrain: SetBrain!
     private var selectedCards = Set<UIButton>()
     
     private let selectionLimit = 3
@@ -111,3 +111,6 @@ class PlaySetViewController: UIViewController {
     }
 
 }
+
+
+// "▲●■"

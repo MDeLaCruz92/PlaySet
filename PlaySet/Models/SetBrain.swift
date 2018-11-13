@@ -42,18 +42,18 @@ struct SetBrain {
         }
     }
         
-//    init(numberOfPairsOfCards: Int) {
-//        for _ in 0..<numberOfPairsOfCards {
-//            let card = PlayingSet()
-//            setCards += [card, card, card]
-//        }
-//        
-//        var cardsShuffled = [PlayingSet]()
-//        for _ in setCards.indices {
-//            cardsShuffled.append(setCards.remove(at: setCards.count.arc4random))
-//        }
-//        setCards = cardsShuffled
-//    }
+    init(numberOfPairsOfCards: Int) {
+        for _ in 0..<numberOfPairsOfCards {
+            let card = PlayingSet()
+            setCards += [card, card, card]
+        }
+        
+        var cardsShuffled = [PlayingSet]()
+        for _ in setCards.indices {
+            cardsShuffled.append(setCards.remove(at: setCards.count.arc4random))
+        }
+        setCards = cardsShuffled
+    }
     
 }
 

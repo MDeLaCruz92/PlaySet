@@ -9,25 +9,24 @@
 import Foundation
 
 // MARK: This can be determined as PlayingCard
-struct PlayingSet: Hashable { // TODO: Playing around with the dictionary, going to actually may need to make this Equatable and work with that
+struct PlayingSet: Hashable {
     
-    enum Symbol: CaseIterable {
-        case triangle
-        case circle
-        case square
-        
-        case red
-        case blue
-        case green
-        
-        case stripe
-        case notFilled
-        case filled
-        
-        case single
-        case double
-        case triple
-        
+    private var identifier: Int
+    
+    var hashable: Int { return identifier }
+    
+    static func ==(lhs: PlayingSet, rhs: PlayingSet) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    private static var identifierFactory = 0
+    private static func getUniqueIdentifier() -> Int {
+        identifierFactory += 1
+        return PlayingSet.identifierFactory
+    }
+    
+    init() {
+        self.identifier = PlayingSet.getUniqueIdentifier()
     }
     
     enum Shape {
@@ -36,8 +35,8 @@ struct PlayingSet: Hashable { // TODO: Playing around with the dictionary, going
         case circle
     }
     
-    enum Amount {
-        case one
+    enum Amount: Int {
+        case one = 1
         case two
         case three
     }
@@ -54,6 +53,12 @@ struct PlayingSet: Hashable { // TODO: Playing around with the dictionary, going
         case green
     }
 }
+
+
+/*
+ - How am I going to get them matching? As in the features should be implemented in the card? And then, match them ??
+ - 
+ */
 
 /*
  What is a SET?
@@ -78,3 +83,23 @@ struct PlayingSet: Hashable { // TODO: Playing around with the dictionary, going
  shapes and shading instead of striping, etc.), the colors, shapes, etc., are really a UI
  concept and have nothing to do with the Model.
  */
+
+/*
+enum Symbol: CaseIterable {
+    case triangle
+    case circle
+    case square
+    
+    case red
+    case blue
+    case green
+    
+    case stripe
+    case notFilled
+    case filled
+    
+    case single
+    case double
+    case triple
+}
+*/
