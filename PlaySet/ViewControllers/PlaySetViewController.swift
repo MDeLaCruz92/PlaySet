@@ -16,14 +16,18 @@ class PlaySetViewController: UIViewController {
     
     @IBOutlet var startingCardsButtons: [UIButton]!
     @IBOutlet var remainingCardsButtons: [UIButton]!
+    
         
     // MARK: Private Properties
-    private var deck = PlayingCardDeck()
-    private var setBrain: SetBrain!
-    private var selectedCards = Set<UIButton>()
-    
+    private let allCards = [UIButton]()
     private let selectionLimit = 3
     private let dealCardsAmount = 3
+    
+    private lazy var setBrain = SetBrain(numberOfPairsOfCards: (startingCardsButtons.count + remainingCardsButtons.count) / 3)
+    private var deck = PlayingCardDeck()
+    private var selectedCards = Set<UIButton>()
+    
+
 
     // MARK: Action Methods
     @IBAction func touchCard(_ sender: UIButton) {

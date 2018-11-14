@@ -12,19 +12,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-//    let services: CoreServicesContainer = CoreNavigation(navigationControllerType: CoreNavigationController.self)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // My Way
-//        window = UIWindow()
-//        window?.rootViewController = PlaySetViewController()
-        
-        // Homer
-//        guard let window = window else { fatalError() }
-//        let navigator = services
-//        navigator.reset(to: .playSetView(container: services), in: window)
-        
-        // App Partner
         self.window = configuredWindow(rootViewController: PlaySetViewController.instance)
         self.window?.makeKeyAndVisible()
         return true

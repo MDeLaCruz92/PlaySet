@@ -33,24 +33,32 @@ struct PlayingSet: Hashable {
         case triangle
         case square
         case circle
+        
+        static var all = [Shape.triangle, .square, .circle]
     }
     
     enum Amount: Int {
         case one = 1
         case two
         case three
+        
+        static var all = [Amount.one, .two, .three]
     }
     
     enum Shading {
         case filled
         case notFilled
         case striped
+        
+        static var all = [Shading.filled, .notFilled, .striped]
     }
     
     enum Color {
         case blue
         case red
         case green
+        
+        static var all = [Color.blue, .red, .green]
     }
 }
 
