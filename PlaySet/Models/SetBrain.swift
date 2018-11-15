@@ -12,16 +12,30 @@ import Foundation
 struct SetBrain {
     
     private(set) var setCards = [PlayingSet]()
-    private(set) var selectedCards = Set<Int>()
+    private(set) var selectedCards = Set<PlayingSet>()
     private let selectionLimit = 3
 
     static let matchPoints = 2
     static let misMatchPenalty = 1
     
+    init() {
+        for shape in PlayingSet.Shape.allCases {
+            for amount in PlayingSet.Amount.allCases {
+                for shading in PlayingSet.Shading.allCases {
+                    for color in PlayingSet.Color.allCases {
+                        setCards.append(PlayingSet(shape: shape, amount: amount, shading: shading, color: color))
+                    }
+                }
+            }
+        }
+    }
+    
+    enum CardFeatureMatch {
+        case allSame
+        case allDifferent
+    }
+    
     mutating func chooseCard(at index: Int)  {
-        // check if cards match
-        // select 3 cards and then check if they are a match
-        // how can we do this? maybe we need the equatable(like int and strings do) but also need a enum to verify if they are the same??
         selectCards(index)
     }
     
@@ -35,40 +49,21 @@ struct SetBrain {
     
     private mutating func selectCards(_ index: Int) {
         if selectedCards.count < selectionLimit {
-            selectedCards.insert(index)
+            selectedCards.insert(setCards[index])
+            print("***Select cards in SetBrain: \(selectedCards)")
         }
         if selectedCards.count == selectionLimit {
             selectedCards = []
         }
     }
-        
-    init(numberOfPairsOfCards: Int) {
-        for _ in 0..<numberOfPairsOfCards {
-            let card = PlayingSet()
-            setCards += [card, card, card]
-        }
-        
-        var cardsShuffled = [PlayingSet]()
-        for _ in setCards.indices {
-            cardsShuffled.append(setCards.remove(at: setCards.count.arc4random))
-        }
-        setCards = cardsShuffled
-    }
     
 }
 
-//extension Int {
-//    var arc4random: Int {
-//        if self > 0 {
-//            return Int(arc4random_uniform(UInt32(self)))
-//        } else if self < 0 {
-//            return -Int(arc4random_uniform(UInt32(self)))
-//        } else {
-//            return 0
-//        }
-//    }
+//var cardsShuffled = [PlayingSet]()
+//for _ in setCards.indices {
+//    cardsShuffled.append(setCards.remove(at: setCards.count.arc4random))
 //}
-
+//setCards = cardsShuffled
 
 /*
  3. A couple of really great methods in Array are index(of:) and contains(). But they

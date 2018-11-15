@@ -16,24 +16,21 @@ class PlaySetViewController: UIViewController {
     
     @IBOutlet var startingCardsButtons: [UIButton]!
     @IBOutlet var remainingCardsButtons: [UIButton]!
+    @IBOutlet var cardButtons: [UIButton]!
     
-        
+    
     // MARK: Private Properties
-    private let allCards = [UIButton]()
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
-    private lazy var setBrain = SetBrain(numberOfPairsOfCards: (startingCardsButtons.count + remainingCardsButtons.count) / 3)
+    private var setBrain = SetBrain()
     private var deck = PlayingCardDeck()
     private var selectedCards = Set<UIButton>()
     
-
-
     // MARK: Action Methods
     @IBAction func touchCard(_ sender: UIButton) {
         // TODO: Add an Array to use hint: contains and indexOf: array methods
         // will also been to make have to make your data type Equatable idk which
-        let cardButtons = startingCardsButtons + remainingCardsButtons
         if let cardNumber = cardButtons.index(of: sender) {
             setBrain.chooseCard(at: cardNumber)
             cardSelectionResult(button: sender)
@@ -64,12 +61,6 @@ class PlaySetViewController: UIViewController {
         
         startNewGame()
         setupUI()
-        
-        for _ in startingCardsButtons {
-            if let card = setBrain.draw() {
-                print("cards: \(card)")
-            }
-        }
     }
     
     // MARK: Private methods
@@ -106,7 +97,18 @@ class PlaySetViewController: UIViewController {
             button.setupButtonUI()
             button.isHidden = true
         }
+        
+        dealOutStartingCards()
     }
+    
+    private func dealOutStartingCards() {
+        for _ in cardButtons {
+            if let card = setBrain.draw() {
+                print("cards: \(card)")
+            }
+        }
+    }
+    
     
     private func startNewGame() {
 //        let totalOfNumberOfPairs = ((startingCardsButtons.count + remainingCardsButtons.count) + 1) / 2

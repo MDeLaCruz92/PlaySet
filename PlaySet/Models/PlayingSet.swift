@@ -9,58 +9,50 @@
 import Foundation
 
 // MARK: This can be determined as PlayingCard
-struct PlayingSet: Hashable {
+struct PlayingSet: Hashable, CustomStringConvertible {
+    var description: String { return "\(shape) \(amount) \(shading) \(color)" }
     
-    private var identifier: Int
+    private(set) var shape: Shape
+    private(set) var amount: Amount
+    private(set) var shading: Shading
+    private(set) var color: Color
     
-    var hashable: Int { return identifier }
-    
-    static func ==(lhs: PlayingSet, rhs: PlayingSet) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-    
-    private static var identifierFactory = 0
-    private static func getUniqueIdentifier() -> Int {
-        identifierFactory += 1
-        return PlayingSet.identifierFactory
-    }
-    
-    init() {
-        self.identifier = PlayingSet.getUniqueIdentifier()
-    }
-    
-    enum Shape {
+    enum Shape: CaseIterable {
         case triangle
         case square
         case circle
-        
-        static var all = [Shape.triangle, .square, .circle]
     }
     
-    enum Amount: Int {
+    enum Amount: Int, CaseIterable {
         case one = 1
         case two
         case three
-        
-        static var all = [Amount.one, .two, .three]
     }
     
-    enum Shading {
+    enum Shading: CaseIterable {
         case filled
         case notFilled
         case striped
-        
-        static var all = [Shading.filled, .notFilled, .striped]
     }
     
-    enum Color {
+    enum Color: CaseIterable {
         case blue
         case red
         case green
-        
-        static var all = [Color.blue, .red, .green]
     }
+    
 }
+
+//var order: Int? {
+//    switch self {
+//    case .ace: return 1
+//    case .numeric(let pips): return pips
+//    case .face(let kind) where kind == "J": return 11
+//    case .face(let kind) where kind == "Q": return 12
+//    case .face(let kind) where kind == "K": return 13
+//    default: return nil
+//    }
+//}
 
 
 /*
@@ -91,23 +83,3 @@ struct PlayingSet: Hashable {
  shapes and shading instead of striping, etc.), the colors, shapes, etc., are really a UI
  concept and have nothing to do with the Model.
  */
-
-/*
-enum Symbol: CaseIterable {
-    case triangle
-    case circle
-    case square
-    
-    case red
-    case blue
-    case green
-    
-    case stripe
-    case notFilled
-    case filled
-    
-    case single
-    case double
-    case triple
-}
-*/

@@ -20,7 +20,6 @@ struct PlayingCardDeck {
     }
     
     mutating func draw() -> PlayingCard? {
-//        return cards.count > 0 ? cards.remove(at: cards.count.arc4random) : nil!
         if cards.count > 0 {
             return cards.remove(at: cards.count.arc4random)
         } else {
