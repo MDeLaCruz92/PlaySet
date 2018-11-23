@@ -12,33 +12,38 @@ import Foundation
 struct PlayingSet: Hashable, CustomStringConvertible {
     var description: String { return "\(shape) \(amount) \(shading) \(color)" }
     
-    private(set) var shape: Shape
-    private(set) var amount: Amount
-    private(set) var shading: Shading
-    private(set) var color: Color
+    private(set) var shape: CardState.Shape
+    private(set) var amount: CardState.Amount
+    private(set) var shading: CardState.Shading
+    private(set) var color: CardState.Color
     
-    enum Shape: CaseIterable {
-        case triangle
-        case square
-        case circle
-    }
-    
-    enum Amount: Int, CaseIterable {
-        case one = 1
-        case two
-        case three
-    }
-    
-    enum Shading: CaseIterable {
-        case filled
-        case notFilled
-        case striped
-    }
-    
-    enum Color: CaseIterable {
-        case blue
-        case red
-        case green
+    enum CardState: Equatable {
+        case match
+        
+        enum Shape: CaseIterable {
+            case triangle
+            case square
+            case circle
+        }
+        
+        enum Amount: Int, CaseIterable {
+            case one = 1
+            case two
+            case three
+        }
+        
+        enum Shading: CaseIterable {
+            case filled
+            case notFilled
+            case striped
+        }
+        
+        enum Color: CaseIterable {
+            case blue
+            case red
+            case green
+        }
+        
     }
     
 }

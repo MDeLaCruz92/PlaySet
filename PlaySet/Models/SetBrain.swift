@@ -19,20 +19,15 @@ struct SetBrain {
     static let misMatchPenalty = 1
     
     init() {
-        for shape in PlayingSet.Shape.allCases {
-            for amount in PlayingSet.Amount.allCases {
-                for shading in PlayingSet.Shading.allCases {
-                    for color in PlayingSet.Color.allCases {
+        for shape in PlayingSet.CardState.Shape.allCases {
+            for amount in PlayingSet.CardState.Amount.allCases {
+                for shading in PlayingSet.CardState.Shading.allCases {
+                    for color in PlayingSet.CardState.Color.allCases {
                         setCards.append(PlayingSet(shape: shape, amount: amount, shading: shading, color: color))
                     }
                 }
             }
         }
-    }
-    
-    enum CardFeatureMatch {
-        case allSame
-        case allDifferent
     }
     
     mutating func chooseCard(at index: Int)  {
