@@ -8,23 +8,23 @@
 
 import Foundation
 
-struct Card: Hashable {
+struct CardDemo: Hashable {
     
     private var identifier: Int
     
     var hashable: Int { return identifier }
     
-    static func ==(lhs: Card, rhs: Card) -> Bool {
+    static func ==(lhs: CardDemo, rhs: CardDemo) -> Bool {
         return lhs.identifier == rhs.identifier
     }
     
     private static var identifierFactory = 0
     private static func getUniqueIdentifier() -> Int {
         identifierFactory += 1
-        return Card.identifierFactory
+        return CardDemo.identifierFactory
     }
     
     init() {
-        self.identifier = Card.getUniqueIdentifier()
+        self.identifier = CardDemo.getUniqueIdentifier()
     }
 }

@@ -18,29 +18,27 @@ class PlaySetViewController: UIViewController {
     @IBOutlet var remainingCardsButtons: [UIButton]!
     @IBOutlet var cardButtons: [UIButton]!
     
-    
     // MARK: Private Properties
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
-    private var setBrain = SetBrain()
     private var deck = PlayingCardDeck()
-    private var selectedCards = Set<UIButton>()
+    private var selectedCardButtons = Set<UIButton>()
     
     // MARK: Action Methods
     @IBAction func touchCard(_ sender: UIButton) {
         // TODO: Add an Array to use hint: contains and indexOf: array methods
         // will also been to make have to make your data type Equatable idk which
         if let cardNumber = cardButtons.index(of: sender) {
-            setBrain.chooseCard(at: cardNumber)
+            deck.chooseCard(at: cardNumber)
             cardSelectionResult(button: sender)
         }
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
-        // TODO: deal from the remainingCards pile
+        // TODO: Refactor
         var count = 0
-        remainingCardsButtons.forEach { (button) in
+        remainingCardsButtons.forEach { button in
             if count < dealCardsAmount {
                 if button.isHidden {
                     button.isHidden = false
@@ -59,61 +57,44 @@ class PlaySetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        startNewGame()
         setupUI()
+        deck.setupGameDeck(amountOfCards: cardButtons.count)
     }
     
     // MARK: Private methods
     private func cardSelectionResult(button: UIButton) {
         deselectAllCardsIfNescessary()
         
-        if selectedCards.contains(button) {
+        if selectedCardButtons.contains(button) {
             button.applyTouchDeselectionUI()
-            selectedCards.remove(button)
-        } else if selectedCards.count < selectionLimit {
+            selectedCardButtons.remove(button)
+        } else if selectedCardButtons.count < selectionLimit {
             button.applyTouchSelectionUI()
-            selectedCards.insert(button)
+            selectedCardButtons.insert(button)
         }
-        print("*** selectedCards: \(selectedCards.count)")
+//        print("*** selectedCards: \(selectedCardButtons.count)")
     }
     
     private func deselectAllCardsIfNescessary() {
-        if selectedCards.count == selectionLimit {
-            selectedCards.forEach { cardButton in
-                cardButton.applyTouchDeselectionUI()
-            }
-            selectedCards = []
+        if selectedCardButtons.count == selectionLimit {
+            selectedCardButtons.forEach { $0.applyTouchDeselectionUI() }
+            selectedCardButtons = []
         }
     }
     
     private func setupUI() {
         view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        startingCardsButtons.forEach { $0.setupButtonUI() }
         
-        startingCardsButtons.forEach { button in
-            button.setupButtonUI()
-        }
-        
-        remainingCardsButtons.forEach { button in
-            button.setupButtonUI()
-            button.isHidden = true
-        }
-        
-        dealOutStartingCards()
-    }
-    
-    private func dealOutStartingCards() {
-        for _ in cardButtons {
-            if let card = setBrain.draw() {
-                print("cards: \(card)")
-            }
+        remainingCardsButtons.forEach {
+            $0.setupButtonUI()
+            $0.isHidden = true
         }
     }
-    
     
     private func startNewGame() {
-//        let totalOfNumberOfPairs = ((startingCardsButtons.count + remainingCardsButtons.count) + 1) / 2
-//        setBrain = SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs)
-//        print("numerOfPairs: \(SetBrain(numberOfPairsOfCards: totalOfNumberOfPairs))")
+        remainingCardsButtons.forEach { $0.isHidden = true }
+        deck.setupGameDeck(amountOfCards: cardButtons.count)
     }
 
 }
