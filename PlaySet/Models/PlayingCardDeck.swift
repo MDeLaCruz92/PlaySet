@@ -32,8 +32,13 @@ struct PlayingCardDeck {
     }
         
     mutating func chooseCard(at index: Int)  {
-        gameDeck[index].cardState = .selected
-        let selectedCards = gameDeck.filter { $0.cardState == PlayingCard.CardState.selected }
+        let selectedCards = gameDeck.filter { $0.cardState == .selected }
+        if selectedCards.contains(gameDeck[index]) {
+            gameDeck[index].cardState = .notSelected
+        } else {
+            gameDeck[index].cardState = .selected
+        }
+        
         matchFeature(at: index, selectedCards: selectedCards)
         print("chooseCard: \(gameDeck[index].cardState)")
 //        selectCards(at: index)
@@ -61,7 +66,8 @@ struct PlayingCardDeck {
         switch gameDeck[index].cardState {
         case .matched: matched(at: index, selectedCards: selectedCards)
         case .selected: selectState(at: index, selectedCards: selectedCards)
-        default: noMatch(at: index)
+        case .notSelected: notSelected(at: index)
+        case .noMatch: noMatch(at: index)
         }
         print("selectedCards: \(selectedCards)")
     }
@@ -97,13 +103,11 @@ struct PlayingCardDeck {
     
     private mutating func selectState(at index: Int, selectedCards: [PlayingCard]) {
         if selectedCards.count == selectionLimit {
-            gameDeck[index].cardState = PlayingCard.CardState.matched
-        } else {
-            gameDeck[index].cardState = .notSelected
+            gameDeck[index].cardState = .matched
         }
     }
     
-    private func notSelected(at index: Int) {
+    private mutating func notSelected(at index: Int) {
     }
     
 //    private mutating func selectCards(at  index: Int) {
