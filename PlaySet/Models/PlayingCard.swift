@@ -17,38 +17,52 @@ struct PlayingCard: Hashable, CustomStringConvertible {
     private(set) var color: Color
     var cardState: CardState
     
-    enum Shape: Equatable, CaseIterable {
+    enum Shape: CaseIterable {
         case triangle
         case square
         case circle
     }
     
-    enum Amount: Equatable, CaseIterable {
+    enum Amount: CaseIterable {
         case one
         case two
         case three
     }
     
-    enum Shading:  Equatable, CaseIterable {
+    enum Shading: CaseIterable {
         case filled
         case notFilled
         case striped
     }
     
-    enum Color: Equatable, CaseIterable {
+    enum Color: CaseIterable {
         case blue
         case red
         case green
     }
     
-    enum CardState: Equatable {
-        case matched
-        case noMatch
+    enum CardState {
         case selected
         case notSelected
+        case matched
     }
     
 }
+
+//extension TestEnum: Equatable {
+//
+//    public static func ==(lhs: TestEnum, rhs:TestEnum) -> Bool {
+//
+//        switch (lhs,rhs) {
+//        case (.testB, .testB):
+//            return true
+//        case (.testA,.testA):
+//            return true
+//        default:
+//            return false
+//        }
+//    }
+//}
 
 //var order: Int? {
 //    switch self {

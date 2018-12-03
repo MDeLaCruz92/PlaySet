@@ -13,7 +13,7 @@ struct PlayingCardDeck {
     private var deckOfCards = [PlayingCard]()
     private var gameDeck = [PlayingCard]()
     
-//    private(set) var selectedCards = Set<PlayingCard>()
+    private(set) var selectedCardsIndex = Set<Int>()
     private let selectionLimit = 3
 
     static let matchPoints = 2
@@ -30,18 +30,10 @@ struct PlayingCardDeck {
             }
         }
     }
-        
+    
     mutating func chooseCard(at index: Int)  {
-        let selectedCards = gameDeck.filter { $0.cardState == .selected }
-        if selectedCards.contains(gameDeck[index]) {
-            gameDeck[index].cardState = .notSelected
-        } else {
-            gameDeck[index].cardState = .selected
-        }
-        
-        matchFeature(at: index, selectedCards: selectedCards)
+        handleSelectState(at: index)
         print("chooseCard: \(gameDeck[index].cardState)")
-//        selectCards(at: index)
     }
     
     mutating func setupGameDeck(amountOfCards: Int) {
@@ -62,52 +54,82 @@ struct PlayingCardDeck {
         }
     }
     
-    private mutating func matchFeature(at index: Int, selectedCards: [PlayingCard]) {
+    private mutating func handleSelectState(at index: Int) {
+//        gameDeck[index].cardState = gameDeck[index].cardState == .selected ? .notSelected : .selected
+        if gameDeck[index].cardState == .selected {
+            gameDeck[index].cardState = .notSelected
+        } else {
+            gameDeck[index].cardState = .selected
+            selectedCardsIndex.insert(index)
+        }
+        let selectedCards = gameDeck.filter { $0.cardState == .selected }
+        
         switch gameDeck[index].cardState {
-        case .matched: matched(at: index, selectedCards: selectedCards)
-        case .selected: selectState(at: index, selectedCards: selectedCards)
-        case .notSelected: notSelected(at: index)
-        case .noMatch: noMatch(at: index)
+        case .selected: selectState(selectedCards)
+        case .notSelected: notSelected()
+        case .matched: print("Might have to do something in the UI. This may not be a great idea...")
         }
         print("selectedCards: \(selectedCards)")
     }
     
-    private func matched(at Index: Int , selectedCards: [PlayingCard]) {
-        let allAmountMatch = selectedCards.allSatisfy({ $0.amount == selectedCards.first?.amount })
-        let allColorMatch = selectedCards.allSatisfy( { $0.color == selectedCards.first?.color })
-        let allShadingMatch = selectedCards.allSatisfy({ $0.shading == selectedCards.first?.shading })
-        let allShapeMatch = selectedCards.allSatisfy({ $0.shape == selectedCards.first?.shape })
-        
-        print("allStatisfyAmount: \(allAmountMatch)")
-        print("allStatisfyColor: \(allColorMatch)")
-        print("allStatisfyShading: \(allShadingMatch)")
-        print("allStatisfyShape: \(allShapeMatch)")
-        
-//        if selectedCards[0].amount == selectedCards[1].amount && selectedCards[1].amount == selectedCards[2].amount ||
-//            selectedCards[0].amount != selectedCards[1].amount && selectedCards[1].amount != selectedCards[2].amount {
-//
-//        }
-//        if selectedCards[0].color == selectedCards[1].color && selectedCards[1].color == selectedCards[2].color ||
-//            selectedCards[0].color != selectedCards[1].color && selectedCards[1].color != selectedCards[2].color {
-//
-//        }
-//        if selectedCards[0].shading == selectedCards[1].shading && selectedCards[1].shading == selectedCards[2].shading ||
-//            selectedCards[0].shading != selectedCards[1].shading && selectedCards[1].shading != selectedCards[2].shading{
-//        }
-//        if selectedCards[0].shape == selectedCards[1].shape && selectedCards[1].shape == selectedCards[2].shape {
-//        }
-    }
-    
-    private mutating func noMatch(at index: Int) {
-    }
-    
-    private mutating func selectState(at index: Int, selectedCards: [PlayingCard]) {
-        if selectedCards.count == selectionLimit {
-            gameDeck[index].cardState = .matched
+    private mutating func handleMatchState(_ selectedCards: [PlayingCard]) {
+        let cardsFeatureMatch = [shapeMatchState(for: selectedCards), amountMatchState(for: selectedCards), shadingMatchState(for: selectedCards), colorMatchState(for: selectedCards)]
+        print("result of matching:  \(cardsFeatureMatch)")
+        if cardsFeatureMatch.allSatisfy( { $0 == true }) {
+            print("Cards MATCH!!!!")
+            cardsAreMatched(selectedCards)
+        } else {
+            print("Cards DOES NOT MATCH!!!!")
+            cardsDoNotMatch(selectedCards)
         }
     }
     
-    private mutating func notSelected(at index: Int) {
+    private func amountMatchState(for cards: [PlayingCard]) -> Bool  {
+        let allTrue =  cards[0].amount == cards[1].amount && cards[1].amount == cards[2].amount
+        let allFalse = cards[0].amount != cards[1].amount && cards[1].amount != cards[2].amount && cards[0].amount != cards[2].amount
+        return allTrue || allFalse
+    }
+    
+    private func colorMatchState(for cards: [PlayingCard]) -> Bool {
+        let allTrue = cards[0].color == cards[1].color && cards[1].color == cards[2].color
+        let allFalse = cards[0].color != cards[1].color && cards[1].color != cards[2].color && cards[0].color != cards[2].color
+        return allTrue || allFalse
+    }
+    
+    private func shadingMatchState(for cards: [PlayingCard]) -> Bool {
+        let allTrue = cards[0].shading == cards[1].shading && cards[1].shading == cards[2].shading
+        let allFalse = cards[0].shading != cards[1].shading && cards[1].shading != cards[2].shading && cards[0].shading != cards[2].shading
+        return allTrue || allFalse
+    }
+    
+    private func shapeMatchState(for cards: [PlayingCard]) -> Bool {
+        let allTrue =  cards[0].shape == cards[1].shape && cards[1].shape == cards[2].shape
+        let allFalse = cards[0].shape != cards[1].shape && cards[1].shape != cards[2].shape && cards[0].shape != cards[2].shape
+        return allTrue || allFalse
+    }
+    
+    private mutating func cardsAreMatched(_ selectedCards: [PlayingCard]) {
+        selectedCardsIndex.forEach { index in
+            print("BEFORE: \(gameDeck[index].cardState)")
+            gameDeck[index].cardState = .matched
+            print("AFTER: \(gameDeck[index].cardState)")
+        }
+    }
+    
+    private mutating func cardsDoNotMatch(_ selectedCards: [PlayingCard]) {
+        selectedCardsIndex.forEach { index in
+            gameDeck[index].cardState = .notSelected
+        }
+        selectedCardsIndex = []
+    }
+    
+    private mutating func selectState(_ selectedCards: [PlayingCard]) {
+        if selectedCards.count == selectionLimit {
+            handleMatchState(selectedCards)
+        }
+    }
+    
+    private mutating func notSelected() {
     }
     
 //    private mutating func selectCards(at  index: Int) {
