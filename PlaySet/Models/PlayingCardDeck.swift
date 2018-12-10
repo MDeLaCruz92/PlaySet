@@ -11,8 +11,7 @@ import Foundation
 struct PlayingCardDeck {
     
     private var deckOfCards = [PlayingCard]()
-    private var gameDeck = [PlayingCard]()
-    
+    private(set) var gameDeck = [PlayingCard]()
     private(set) var selectedCardsIndex = Set<Int>()
     private let selectionLimit = 3
 

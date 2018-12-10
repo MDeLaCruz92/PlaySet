@@ -22,6 +22,12 @@ class PlaySetViewController: UIViewController {
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
+    private let cardAttributes: [NSAttributedString.Key : Any] = [
+        .strokeColor : UIColor.orange,
+        .strokeWidth : 5.0
+        
+    ]
+    
     private var deck = PlayingCardDeck()
     private var selectedCardButtons = Set<UIButton>()
     
@@ -84,12 +90,22 @@ class PlaySetViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-        startingCardsButtons.forEach { $0.setupButtonUI() }
-        
-        remainingCardsButtons.forEach {
-            $0.setupButtonUI()
-            $0.isHidden = true
+        cardButtons.forEach { $0.setupButtonUI() }
+        remainingCardsButtons.forEach { $0.isHidden = true }
+    }
+    
+    private func updateViewFromModel() {
+        for index in cardButtons.indices {
+            let button = cardButtons[index]
+            let card = deck.gameDeck[index]
+            
+            let cardAttributedString = NSAttributedString(string: button.title(for: .normal)!, attributes: cardAttributes)
+            
         }
+    }
+    
+    private func setupCardsUI() {
+       
     }
     
     private func startNewGame() {

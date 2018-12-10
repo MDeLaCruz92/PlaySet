@@ -9,7 +9,7 @@
 import Foundation
 
 struct PlayingCard: Hashable, CustomStringConvertible {
-    var description: String { return "\(shape) \(amount) \(shading) \(color) \(cardState)" }
+    var description: String { return "\(shape.rawValue) \(amount.rawValue) \(shading) \(color) \(cardState)" }
     
     private(set) var shape: Shape
     private(set) var amount: Amount
@@ -17,14 +17,14 @@ struct PlayingCard: Hashable, CustomStringConvertible {
     private(set) var color: Color
     var cardState: CardState
     
-    enum Shape: CaseIterable {
-        case triangle
-        case square
-        case circle
+    enum Shape: String, CaseIterable {
+        case triangle = "▲"
+        case square = "■"
+        case circle = "●"
     }
     
-    enum Amount: CaseIterable {
-        case one
+    enum Amount: Int, CaseIterable {
+        case one = 1
         case two
         case three
     }
