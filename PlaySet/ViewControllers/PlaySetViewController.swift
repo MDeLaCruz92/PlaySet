@@ -22,12 +22,6 @@ class PlaySetViewController: UIViewController {
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
-    private let cardAttributes: [NSAttributedString.Key : Any] = [
-        .strokeColor : UIColor.orange,
-        .strokeWidth : 5.0
-        
-    ]
-    
     private var deck = PlayingCardDeck()
     private var selectedCardButtons = Set<UIButton>()
     
@@ -65,6 +59,7 @@ class PlaySetViewController: UIViewController {
         
         setupUI()
         deck.setupGameDeck(amountOfCards: cardButtons.count)
+        updateViewFromModel()
     }
     
     // MARK: Private methods
@@ -95,17 +90,27 @@ class PlaySetViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        for index in cardButtons.indices {
-            let button = cardButtons[index]
+        for (index, button)  in cardButtons.enumerated() {
             let card = deck.gameDeck[index]
-            
-            let cardAttributedString = NSAttributedString(string: button.title(for: .normal)!, attributes: cardAttributes)
-            
+            let cardAttributes: [NSAttributedString.Key : Any] = [
+                .strokeColor :  setupCardColor(card, button),
+                .foregroundColor: UIColor.yellow.withAlphaComponent(1)
+            ]
+            let cardAttributedString = NSAttributedString(string: card.shape.rawValue, attributes: cardAttributes)
+            button.setAttributedTitle(cardAttributedString, for: .normal)
         }
     }
     
-    private func setupCardsUI() {
-       
+//    private func setupCardShading(_ card: PlayingCard, _ button: UIButton) -> UIColor {
+//
+//    }
+    
+    private func setupCardColor(_ card: PlayingCard, _ button: UIButton) -> UIColor {
+        switch card.color {
+        case .blue: return UIColor.blue
+        case .green: return UIColor.green
+        case .red: return UIColor.red
+        }
     }
     
     private func startNewGame() {
@@ -117,3 +122,20 @@ class PlaySetViewController: UIViewController {
 
 
 // "▲●■"
+
+
+/*
+ 
+ - get the shape propoerly -> DONE
+ - get the color properly
+ - get the amount of shapes
+ - fill the shape properly
+ 
+ 
+ let cardAttributes: [NSAttributedString.Key : Any] = [
+ .strokeColor :  setupCardColor(card, button),
+ .strokeWidth : 10.0,
+ .foregroundColor: setupCardColor(card, button).withAlphaComponent(0.15)
+ ]
+ 
+ */

@@ -29,13 +29,13 @@ struct PlayingCard: Hashable, CustomStringConvertible {
         case three
     }
     
-    enum Shading: CaseIterable {
+    enum Shading: String, CaseIterable {
         case filled
         case notFilled
         case striped
     }
     
-    enum Color: CaseIterable {
+    enum Color: String,  CaseIterable {
         case blue
         case red
         case green
