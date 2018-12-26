@@ -92,20 +92,35 @@ class PlaySetViewController: UIViewController {
     private func updateViewFromModel() {
         for (index, button)  in cardButtons.enumerated() {
             let card = deck.gameDeck[index]
-            let cardAttributes: [NSAttributedString.Key : Any] = [
-                .strokeColor :  setupCardColor(card, button),
-                .foregroundColor: UIColor.yellow.withAlphaComponent(1)
-            ]
-            let cardAttributedString = NSAttributedString(string: card.shape.rawValue, attributes: cardAttributes)
+            let cardAttributedString = NSAttributedString(string: setupCardShapeAmount(card), attributes: setupCardAttributes(card))
             button.setAttributedTitle(cardAttributedString, for: .normal)
         }
     }
     
-//    private func setupCardShading(_ card: PlayingCard, _ button: UIButton) -> UIColor {
-//
-//    }
+    private func setupCardAttributes(_ card: PlayingCard) -> [NSAttributedString.Key : Any]   {
+        let cardFadedAttributes: [NSAttributedString.Key : Any] = [.foregroundColor : setupCardColor(card).withAlphaComponent(0.30)]
+        let cardFilledAttributes: [NSAttributedString.Key : Any] = [.foregroundColor: setupCardColor(card).withAlphaComponent(1)]
+        let cardNotFilledAttributes: [NSAttributedString.Key : Any] = [
+            .strokeColor: setupCardColor(card),
+            .strokeWidth: 10.0
+        ]
+        
+        switch card.shading {
+        case .faded: return cardFadedAttributes
+        case .filled: return cardFilledAttributes
+        case .notFilled: return cardNotFilledAttributes
+        }
+    }
     
-    private func setupCardColor(_ card: PlayingCard, _ button: UIButton) -> UIColor {
+    private func setupCardShapeAmount(_ card: PlayingCard) -> String {
+        switch card.amount {
+        case .one: return card.shape.rawValue
+        case .two: return card.shape.rawValue + card.shape.rawValue
+        case .three: return card.shape.rawValue + card.shape.rawValue + card.shape.rawValue
+        }
+    }
+    
+    private func setupCardColor(_ card: PlayingCard) -> UIColor {
         switch card.color {
         case .blue: return UIColor.blue
         case .green: return UIColor.green
@@ -121,21 +136,9 @@ class PlaySetViewController: UIViewController {
 }
 
 
-// "▲●■"
-
 
 /*
- 
- - get the shape propoerly -> DONE
- - get the color properly
- - get the amount of shapes
- - fill the shape properly
- 
- 
- let cardAttributes: [NSAttributedString.Key : Any] = [
- .strokeColor :  setupCardColor(card, button),
- .strokeWidth : 10.0,
- .foregroundColor: setupCardColor(card, button).withAlphaComponent(0.15)
- ]
- 
+ - handle the match properly
+ - get 81 cards in the game properly
+ - make sure the game screen has a match?
  */

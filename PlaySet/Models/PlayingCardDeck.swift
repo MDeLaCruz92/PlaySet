@@ -131,17 +131,6 @@ struct PlayingCardDeck {
     private mutating func notSelected() {
     }
     
-//    private mutating func selectCards(at  index: Int) {
-//        if selectedCards.count < selectionLimit {
-//            selectedCards.insert(gameDeck[index])
-//            print("***Select cards in PlayingCardDeck: \(selectedCards)")
-//        }
-//        if selectedCards.count == selectionLimit {
-//            matchFeature(at: index)
-//            selectedCards = []
-//        }
-//    }
-    
 }
 
 //var cardsShuffled = [PlayingSet]()
