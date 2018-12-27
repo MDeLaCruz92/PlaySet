@@ -10,7 +10,7 @@ import Foundation
 
 struct PlayingCardDeck {
     
-    private var deckOfCards = [PlayingCard]()
+    private(set) var deckOfCards = [PlayingCard]()
     private(set) var gameDeck = [PlayingCard]()
     private(set) var selectedCardsIndex = Set<Int>()
     private let selectionLimit = 3
@@ -42,6 +42,23 @@ struct PlayingCardDeck {
                 gameDeck.append(card)
             }
         }
+    }
+    
+    mutating func resetSelectedCards() {
+        selectedCardsIndex.forEach { index in
+            gameDeck[index].cardState = .notSelected
+        }
+        selectedCardsIndex = []
+    }
+    
+    mutating func replaceMatchedCards() {
+        selectedCardsIndex.forEach { index in
+            gameDeck[index] = deckOfCards.remove(at: deckOfCards.count.arc4random)
+        }
+    }
+    
+    mutating func selectedCardsAreMatched() -> Bool  {
+        return false
     }
 
     // MARK: Private Methods
@@ -76,10 +93,10 @@ struct PlayingCardDeck {
         print("result of matching:  \(cardsFeatureMatch)")
         if cardsFeatureMatch.allSatisfy( { $0 == true }) {
             print("Cards MATCH!!!!")
-            cardsAreMatched(selectedCards)
+            cardsAreMatched()
         } else {
             print("Cards DOES NOT MATCH!!!!")
-            cardsDoNotMatch(selectedCards)
+            cardsDoNotMatch()
         }
     }
     
@@ -107,15 +124,16 @@ struct PlayingCardDeck {
         return allTrue || allFalse
     }
     
-    private mutating func cardsAreMatched(_ selectedCards: [PlayingCard]) {
+    private mutating func cardsAreMatched() { //TODO: these are being matched when they shouldn't?
         selectedCardsIndex.forEach { index in
             print("BEFORE: \(gameDeck[index].cardState)")
             gameDeck[index].cardState = .matched
+//            gameDeck[index] = deckOfCards.remove(at: deckOfCards.count.arc4random)
             print("AFTER: \(gameDeck[index].cardState)")
         }
     }
     
-    private mutating func cardsDoNotMatch(_ selectedCards: [PlayingCard]) {
+    private mutating func cardsDoNotMatch() {
         selectedCardsIndex.forEach { index in
             gameDeck[index].cardState = .notSelected
         }
@@ -130,6 +148,8 @@ struct PlayingCardDeck {
     
     private mutating func notSelected() {
     }
+    
+    
     
 }
 

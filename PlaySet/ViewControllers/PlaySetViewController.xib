@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaySetViewController" customModule="PlaySet" customModuleProvider="target">
             <connections>
+                <outlet property="dealCardsButton" destination="nEk-Vk-Pfd" id="O99-jj-PCT"/>
                 <outlet property="scoreLabel" destination="tDH-ca-mJZ" id="ndD-px-7tU"/>
                 <outlet property="view" destination="SLh-OS-Xrr" id="eHZ-Z5-1VT"/>
                 <outletCollection property="startingCardsButtons" destination="FIq-Mg-z1V" collectionClass="NSMutableArray" id="GEG-GN-5TD"/>

@@ -13,6 +13,7 @@ class PlaySetViewController: UIViewController {
     static let instance = PlaySetViewController()
 
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var dealCardsButton: UIButton!
     
     @IBOutlet var startingCardsButtons: [UIButton]!
     @IBOutlet var remainingCardsButtons: [UIButton]!
@@ -27,8 +28,8 @@ class PlaySetViewController: UIViewController {
     
     // MARK: Action Methods
     @IBAction func touchCard(_ sender: UIButton) {
-        // TODO: Add an Array to use hint: contains and indexOf: array methods
-        // will also been to make have to make your data type Equatable idk which
+        handleMatchedCardsState()
+        
         if let cardNumber = cardButtons.index(of: sender) {
             deck.chooseCard(at: cardNumber)
             cardSelectionResult(button: sender)
@@ -36,17 +37,15 @@ class PlaySetViewController: UIViewController {
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
-        // TODO: Refactor
-        var count = 0
-        remainingCardsButtons.forEach { button in
-            if count < dealCardsAmount {
-                if button.isHidden {
-                    button.isHidden = false
-                    count += 1
-                }
-            }
+        if deck.deckOfCards.isEmpty || noRoomToFitCards() {
+            dealCardsButton.isEnabled = false
         }
-        count = 0
+        
+        if deck.selectedCardsAreMatched() {
+            handleMatchedCardsState()
+        } else {
+            dealFromRemainingCards()
+        }
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
@@ -73,7 +72,23 @@ class PlaySetViewController: UIViewController {
             button.applyTouchSelectionUI()
             selectedCardButtons.insert(button)
         }
-//        print("*** selectedCards: \(selectedCardButtons.count)")
+    }
+    
+    private func noRoomToFitCards() -> Bool {
+        return cardButtons.allSatisfy({$0.isHidden == false })
+    }
+    
+    private func dealFromRemainingCards() {
+        var count = 0
+        remainingCardsButtons.forEach { button in
+            if count < dealCardsAmount {
+                if button.isHidden {
+                    button.isHidden = false
+                    count += 1
+                }
+            }
+        }
+        count = 0
     }
     
     private func deselectAllCardsIfNescessary() {
@@ -89,6 +104,21 @@ class PlaySetViewController: UIViewController {
         remainingCardsButtons.forEach { $0.isHidden = true }
     }
     
+    private func handleMatchedCardsState() {
+        if deck.selectedCardsAreMatched() {
+            deck.replaceMatchedCards()
+            swapMatchedCards()
+        }
+    }
+    
+    private func swapMatchedCards() {
+        for (index, button) in selectedCardButtons.enumerated() {
+            let card = deck.gameDeck[index]
+            let cardAttributedString = NSAttributedString(string: setupCardShapeAmount(card), attributes: setupCardAttributes(card))
+            button.setAttributedTitle(cardAttributedString, for: .normal)
+        }
+    }
+
     private func updateViewFromModel() {
         for (index, button)  in cardButtons.enumerated() {
             let card = deck.gameDeck[index]
@@ -129,13 +159,16 @@ class PlaySetViewController: UIViewController {
     }
     
     private func startNewGame() {
+        dealCardsButton.isEnabled = true
         remainingCardsButtons.forEach { $0.isHidden = true }
+        selectedCardButtons.forEach { $0.applyTouchDeselectionUI() }
+        selectedCardButtons = []
+        deck.resetSelectedCards()
         deck.setupGameDeck(amountOfCards: cardButtons.count)
+        updateViewFromModel()
     }
 
 }
-
-
 
 /*
  - handle the match properly
