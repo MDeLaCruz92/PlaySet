@@ -24,5 +24,15 @@ extension UIButton {
         self.layer.borderWidth = 0.0
         self.layer.borderColor = UIColor.white.cgColor
     }
+    
+    func disableButton() {
+        self.isEnabled = false
+        self.alpha = 0.5
+    }
+    
+    func enableButton() {
+        self.isEnabled = true
+        self.alpha = 1
+    }
 }
 

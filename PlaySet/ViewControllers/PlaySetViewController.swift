@@ -19,7 +19,6 @@ class PlaySetViewController: UIViewController {
     @IBOutlet var remainingCardsButtons: [UIButton]!
     @IBOutlet var cardButtons: [UIButton]!
     
-    // MARK: Private Properties
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
@@ -29,6 +28,7 @@ class PlaySetViewController: UIViewController {
     // MARK: Action Methods
     @IBAction func touchCard(_ sender: UIButton) {
         handleMatchedCardsState()
+        handleDealCardsButtonState()
         
         if let cardNumber = cardButtons.index(of: sender) {
             deck.chooseCard(at: cardNumber)
@@ -37,15 +37,13 @@ class PlaySetViewController: UIViewController {
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
-        if deck.deckOfCards.isEmpty || noRoomToFitCards() {
-            dealCardsButton.isEnabled = false
-        }
-        
         if deck.selectedCardsAreMatched() {
             handleMatchedCardsState()
         } else {
             dealFromRemainingCards()
         }
+        
+        handleDealCardsButtonState()
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
@@ -68,9 +66,26 @@ class PlaySetViewController: UIViewController {
         if selectedCardButtons.contains(button) {
             button.applyTouchDeselectionUI()
             selectedCardButtons.remove(button)
+            deck.selectedCardsIndex.removeLast()
+            if deck.scoreCount > 0 {
+                deck.scoreCount -= 1
+                scoreLabel.text = "Score: \(deck.scoreCount)"
+            }
         } else if selectedCardButtons.count < selectionLimit {
             button.applyTouchSelectionUI()
             selectedCardButtons.insert(button)
+        }
+        
+        handleDealCardsButtonState()
+    }
+    
+    private func handleDealCardsButtonState() {
+        if selectedCardButtons.count == selectionLimit
+            && deck.selectedCardsAreMatched()
+            && !deck.deckOfCards.isEmpty {
+            dealCardsButton.enableButton()
+        } else if deck.deckOfCards.isEmpty || noRoomToFitCards() {
+            dealCardsButton.disableButton()
         }
     }
     
@@ -93,8 +108,7 @@ class PlaySetViewController: UIViewController {
     
     private func deselectAllCardsIfNescessary() {
         if selectedCardButtons.count == selectionLimit {
-            selectedCardButtons.forEach { $0.applyTouchDeselectionUI() }
-            selectedCardButtons = []
+            resetCardsTouchSelection()
         }
     }
     
@@ -108,15 +122,18 @@ class PlaySetViewController: UIViewController {
         if deck.selectedCardsAreMatched() {
             deck.replaceMatchedCards()
             swapMatchedCards()
+            resetCardsTouchSelection()
         }
+        scoreLabel.text = "Score: \(deck.scoreCount)"
     }
     
     private func swapMatchedCards() {
-        for (index, button) in selectedCardButtons.enumerated() {
+        deck.selectedCardsIndex.forEach { index in
             let card = deck.gameDeck[index]
             let cardAttributedString = NSAttributedString(string: setupCardShapeAmount(card), attributes: setupCardAttributes(card))
-            button.setAttributedTitle(cardAttributedString, for: .normal)
+            cardButtons[index].setAttributedTitle(cardAttributedString, for: .normal)
         }
+        deck.resetSelectedCards()
     }
 
     private func updateViewFromModel() {
@@ -158,20 +175,19 @@ class PlaySetViewController: UIViewController {
         }
     }
     
+    private func resetCardsTouchSelection() {
+        selectedCardButtons.forEach { $0.applyTouchDeselectionUI() }
+        selectedCardButtons = []
+    }
+    
     private func startNewGame() {
         dealCardsButton.isEnabled = true
         remainingCardsButtons.forEach { $0.isHidden = true }
-        selectedCardButtons.forEach { $0.applyTouchDeselectionUI() }
-        selectedCardButtons = []
+        resetCardsTouchSelection()
+        deck = PlayingCardDeck()
         deck.resetSelectedCards()
         deck.setupGameDeck(amountOfCards: cardButtons.count)
         updateViewFromModel()
     }
 
 }
-
-/*
- - handle the match properly
- - get 81 cards in the game properly
- - make sure the game screen has a match?
- */

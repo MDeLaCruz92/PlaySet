@@ -10,13 +10,16 @@ import Foundation
 
 struct PlayingCardDeck {
     
+    var selectedCardsIndex = [Int]()
+    var scoreCount = 0
+    
     private(set) var deckOfCards = [PlayingCard]()
     private(set) var gameDeck = [PlayingCard]()
-    private(set) var selectedCardsIndex = Set<Int>()
+    private var isMatched = false
+    
     private let selectionLimit = 3
-
-    static let matchPoints = 2
-    static let misMatchPenalty = 1
+    private let matchPoints = 3
+    private  let misMatchPenalty = 2
     
     init() {
         for shape in PlayingCard.Shape.allCases {
@@ -48,17 +51,20 @@ struct PlayingCardDeck {
         selectedCardsIndex.forEach { index in
             gameDeck[index].cardState = .notSelected
         }
-        selectedCardsIndex = []
+        selectedCardsIndex.removeAll()
     }
     
     mutating func replaceMatchedCards() {
         selectedCardsIndex.forEach { index in
-            gameDeck[index] = deckOfCards.remove(at: deckOfCards.count.arc4random)
+            if let card = draw() {
+                gameDeck[index] = card
+            }
         }
+        isMatched = false
     }
     
     mutating func selectedCardsAreMatched() -> Bool  {
-        return false
+        return isMatched
     }
 
     // MARK: Private Methods
@@ -71,12 +77,14 @@ struct PlayingCardDeck {
     }
     
     private mutating func handleSelectState(at index: Int) {
-//        gameDeck[index].cardState = gameDeck[index].cardState == .selected ? .notSelected : .selected
         if gameDeck[index].cardState == .selected {
             gameDeck[index].cardState = .notSelected
         } else {
             gameDeck[index].cardState = .selected
-            selectedCardsIndex.insert(index)
+            if !selectedCardsIndex.contains(index) {
+                selectedCardsIndex.append(index)
+                print(selectedCardsIndex)
+            }
         }
         let selectedCards = gameDeck.filter { $0.cardState == .selected }
         
@@ -90,13 +98,23 @@ struct PlayingCardDeck {
     
     private mutating func handleMatchState(_ selectedCards: [PlayingCard]) {
         let cardsFeatureMatch = [shapeMatchState(for: selectedCards), amountMatchState(for: selectedCards), shadingMatchState(for: selectedCards), colorMatchState(for: selectedCards)]
-        print("result of matching:  \(cardsFeatureMatch)")
         if cardsFeatureMatch.allSatisfy( { $0 == true }) {
             print("Cards MATCH!!!!")
-            cardsAreMatched()
+            isMatched = true
+            scoreCount += matchPoints
         } else {
             print("Cards DOES NOT MATCH!!!!")
-            cardsDoNotMatch()
+            resetSelectedCards()
+            handleMisMatchScore()
+        }
+    }
+    
+    private mutating func handleMisMatchScore() {
+        if scoreCount > 0 {
+            scoreCount -= misMatchPenalty
+        }
+        if scoreCount < 0 {
+            scoreCount = 0
         }
     }
     
@@ -124,22 +142,6 @@ struct PlayingCardDeck {
         return allTrue || allFalse
     }
     
-    private mutating func cardsAreMatched() { //TODO: these are being matched when they shouldn't?
-        selectedCardsIndex.forEach { index in
-            print("BEFORE: \(gameDeck[index].cardState)")
-            gameDeck[index].cardState = .matched
-//            gameDeck[index] = deckOfCards.remove(at: deckOfCards.count.arc4random)
-            print("AFTER: \(gameDeck[index].cardState)")
-        }
-    }
-    
-    private mutating func cardsDoNotMatch() {
-        selectedCardsIndex.forEach { index in
-            gameDeck[index].cardState = .notSelected
-        }
-        selectedCardsIndex = []
-    }
-    
     private mutating func selectState(_ selectedCards: [PlayingCard]) {
         if selectedCards.count == selectionLimit {
             handleMatchState(selectedCards)
@@ -152,24 +154,3 @@ struct PlayingCardDeck {
     
     
 }
-
-//var cardsShuffled = [PlayingSet]()
-//for _ in setCards.indices {
-//    cardsShuffled.append(setCards.remove(at: setCards.count.arc4random))
-//}
-//setCards = cardsShuffled
-
-/*
- 3. A couple of really great methods in Array are index(of:) and contains(). But they
- only work for Arrays of things that implement the Equatable protocol (like Int and
- String do). If you have a data type of your own that you want to put in an Array and
- use index(of:) and contains() on, just make your data type implements Equatable.
- 
- 4. We kept track of the face up and matched states in Concentration in our Cards. While
- this was great for demonstrating how mutability works in a value type, it might not
- have been the best architecture. Having data structures that are completely
- immutable (i.e. have have no vars, only lets) can make for very clean code. For
- example, in your Set implementation, it’d probably be just as easy to keep a list of all
- the selected cards (or all the already-matched cards) as it would be to have a Bool in
- your Set Card data structure. And you might find the code is much simpler too.
- */
