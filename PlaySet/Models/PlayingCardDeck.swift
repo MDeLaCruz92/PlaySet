@@ -77,6 +77,7 @@ struct PlayingCardDeck {
     }
     
     private mutating func handleSelectState(at index: Int) {
+//        gameDeck[index].cardState = gameDeck[index].cardState == .selected ? .notSelected : .selected
         if gameDeck[index].cardState == .selected {
             gameDeck[index].cardState = .notSelected
         } else {
@@ -90,7 +91,7 @@ struct PlayingCardDeck {
         
         switch gameDeck[index].cardState {
         case .selected: selectState(selectedCards)
-        case .notSelected: notSelected()
+        case .notSelected: print("Card has been unselected")
         case .matched: print("Might have to do something in the UI. This may not be a great idea...")
         }
         print("selectedCards: \(selectedCards)")
@@ -147,10 +148,5 @@ struct PlayingCardDeck {
             handleMatchState(selectedCards)
         }
     }
-    
-    private mutating func notSelected() {
-    }
-    
-    
     
 }

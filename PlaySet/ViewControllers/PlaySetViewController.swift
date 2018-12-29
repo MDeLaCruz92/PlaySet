@@ -18,7 +18,7 @@ class PlaySetViewController: UIViewController {
     @IBOutlet var startingCardsButtons: [UIButton]!
     @IBOutlet var remainingCardsButtons: [UIButton]!
     @IBOutlet var cardButtons: [UIButton]!
-    
+        
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
@@ -66,7 +66,9 @@ class PlaySetViewController: UIViewController {
         if selectedCardButtons.contains(button) {
             button.applyTouchDeselectionUI()
             selectedCardButtons.remove(button)
-            deck.selectedCardsIndex.removeLast()
+            if deck.selectedCardsIndex.count > 0 {
+                deck.selectedCardsIndex.removeLast()
+            }
             if deck.scoreCount > 0 {
                 deck.scoreCount -= 1
                 scoreLabel.text = "Score: \(deck.scoreCount)"
@@ -118,8 +120,17 @@ class PlaySetViewController: UIViewController {
         remainingCardsButtons.forEach { $0.isHidden = true }
     }
     
+    private func handleOutOfCardsState() {
+        if deck.deckOfCards.isEmpty {
+            deck.selectedCardsIndex.forEach { index in
+                cardButtons[index].disableButton()
+            }
+        }
+    }
+    
     private func handleMatchedCardsState() {
         if deck.selectedCardsAreMatched() {
+            handleOutOfCardsState()
             deck.replaceMatchedCards()
             swapMatchedCards()
             resetCardsTouchSelection()
@@ -128,6 +139,8 @@ class PlaySetViewController: UIViewController {
     }
     
     private func swapMatchedCards() {
+         print("deckOfCards: \(deck.deckOfCards.count)")
+        
         deck.selectedCardsIndex.forEach { index in
             let card = deck.gameDeck[index]
             let cardAttributedString = NSAttributedString(string: setupCardShapeAmount(card), attributes: setupCardAttributes(card))
@@ -159,7 +172,7 @@ class PlaySetViewController: UIViewController {
         }
     }
     
-    private func setupCardShapeAmount(_ card: PlayingCard) -> String {
+    private func setupCardShapeAmount(_ card: PlayingCard) -> String { //TODO: should be in model. It has nothing to do with UI
         switch card.amount {
         case .one: return card.shape.rawValue
         case .two: return card.shape.rawValue + card.shape.rawValue
@@ -181,7 +194,8 @@ class PlaySetViewController: UIViewController {
     }
     
     private func startNewGame() {
-        dealCardsButton.isEnabled = true
+        dealCardsButton.enableButton()
+        cardButtons.forEach { $0.enableButton() }
         remainingCardsButtons.forEach { $0.isHidden = true }
         resetCardsTouchSelection()
         deck = PlayingCardDeck()
