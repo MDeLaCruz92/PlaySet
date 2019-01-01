@@ -15,11 +15,21 @@ struct PlayingCardDeck {
     
     private(set) var deckOfCards = [PlayingCard]()
     private(set) var gameDeck = [PlayingCard]()
-    private var isMatched = false
+    private(set) var cardsAreMatched = false
+    
+    private var date = Date()
+    private var currentDate: Date { return Date() }
+    
+    private  var timeInterval: Int {
+        return Int(-date.timeIntervalSinceNow)
+    }
     
     private let selectionLimit = 3
-    private let matchPoints = 3
+    private let matchPoints = 2
     private  let misMatchPenalty = 2
+    private let matchTimeBonus = 3
+    private let maxTimePenalty = 4
+    private let maxTimer = 10
     
     init() {
         for shape in PlayingCard.Shape.allCases {
@@ -33,17 +43,43 @@ struct PlayingCardDeck {
         }
     }
     
-    mutating func chooseCard(at index: Int)  {
-        handleSelectState(at: index)
-        print("chooseCard: \(gameDeck[index].cardState)")
-    }
-    
     mutating func setupGameDeck(amountOfCards: Int) {
         for _ in 1...amountOfCards {
             if let card = draw() {
                 print("cards: \(card)")
                 gameDeck.append(card)
             }
+        }
+    }
+    
+    mutating func chooseCard(at index: Int)  {
+        handleSelectState(at: index)
+        print("chooseCard: \(gameDeck[index].cardState)")
+    }
+    
+    mutating func penalizeDrawing(visibleCards: Int) {
+        var selectedCards = [PlayingCard]()
+        for index in 1..<visibleCards {
+            selectedCards.append(gameDeck[index])
+            let remainingCards = gameDeck[index+1..<visibleCards]
+            for secondCard in remainingCards {
+                selectedCards.append(secondCard)
+                let lastRemainingCards = gameDeck[index+2..<visibleCards]
+                for thirdCard in lastRemainingCards {
+                    selectedCards.append(thirdCard)
+                    if selectedCards.count == selectionLimit {
+                        let cardsFeatureMatch = [shapeMatchState(for: selectedCards), amountMatchState(for: selectedCards), shadingMatchState(for: selectedCards), colorMatchState(for: selectedCards)]
+                        if cardsFeatureMatch.allSatisfy( { $0 == true }) {
+                        handleMisMatchScore()
+                        selectedCards = []
+                        return
+                        }
+                        selectedCards.removeLast()
+                    }
+                }
+                selectedCards.removeLast()
+            }
+            selectedCards = []
         }
     }
     
@@ -60,13 +96,9 @@ struct PlayingCardDeck {
                 gameDeck[index] = card
             }
         }
-        isMatched = false
+        cardsAreMatched = false
     }
     
-    mutating func selectedCardsAreMatched() -> Bool  {
-        return isMatched
-    }
-
     // MARK: Private Methods
     private mutating func draw() -> PlayingCard? {
         if !deckOfCards.isEmpty {
@@ -76,8 +108,8 @@ struct PlayingCardDeck {
         }
     }
     
+    // MARK: Select State
     private mutating func handleSelectState(at index: Int) {
-//        gameDeck[index].cardState = gameDeck[index].cardState == .selected ? .notSelected : .selected
         if gameDeck[index].cardState == .selected {
             gameDeck[index].cardState = .notSelected
         } else {
@@ -97,22 +129,30 @@ struct PlayingCardDeck {
         print("selectedCards: \(selectedCards)")
     }
     
+    private mutating func selectState(_ selectedCards: [PlayingCard]) {
+        if selectedCards.count == selectionLimit {
+            handleMatchState(selectedCards)
+        }
+    }
+
+    // MARK: Match State
     private mutating func handleMatchState(_ selectedCards: [PlayingCard]) {
         let cardsFeatureMatch = [shapeMatchState(for: selectedCards), amountMatchState(for: selectedCards), shadingMatchState(for: selectedCards), colorMatchState(for: selectedCards)]
         if cardsFeatureMatch.allSatisfy( { $0 == true }) {
             print("Cards MATCH!!!!")
-            isMatched = true
-            scoreCount += matchPoints
+            cardsAreMatched = true
+            scoreCount += timeInterval > maxTimer ? matchPoints : matchPoints + matchTimeBonus
         } else {
             print("Cards DOES NOT MATCH!!!!")
             resetSelectedCards()
             handleMisMatchScore()
         }
+        date = currentDate
     }
     
     private mutating func handleMisMatchScore() {
         if scoreCount > 0 {
-            scoreCount -= misMatchPenalty
+            scoreCount -= timeInterval > maxTimer ? misMatchPenalty + maxTimePenalty : misMatchPenalty
         }
         if scoreCount < 0 {
             scoreCount = 0
@@ -141,12 +181,6 @@ struct PlayingCardDeck {
         let allTrue =  cards[0].shape == cards[1].shape && cards[1].shape == cards[2].shape
         let allFalse = cards[0].shape != cards[1].shape && cards[1].shape != cards[2].shape && cards[0].shape != cards[2].shape
         return allTrue || allFalse
-    }
-    
-    private mutating func selectState(_ selectedCards: [PlayingCard]) {
-        if selectedCards.count == selectionLimit {
-            handleMatchState(selectedCards)
-        }
     }
     
 }

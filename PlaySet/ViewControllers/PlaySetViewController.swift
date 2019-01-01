@@ -18,7 +18,7 @@ class PlaySetViewController: UIViewController {
     @IBOutlet var startingCardsButtons: [UIButton]!
     @IBOutlet var remainingCardsButtons: [UIButton]!
     @IBOutlet var cardButtons: [UIButton]!
-        
+    
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
@@ -37,10 +37,12 @@ class PlaySetViewController: UIViewController {
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
-        if deck.selectedCardsAreMatched() {
+        if deck.cardsAreMatched {
             handleMatchedCardsState()
         } else {
+            deck.penalizeDrawing(visibleCards: cardButtons.filter { $0.isHidden == false }.count)
             dealFromRemainingCards()
+            scoreLabel.text = "Score: \(deck.scoreCount)"
         }
         
         handleDealCardsButtonState()
@@ -83,7 +85,7 @@ class PlaySetViewController: UIViewController {
     
     private func handleDealCardsButtonState() {
         if selectedCardButtons.count == selectionLimit
-            && deck.selectedCardsAreMatched()
+            && deck.cardsAreMatched
             && !deck.deckOfCards.isEmpty {
             dealCardsButton.enableButton()
         } else if deck.deckOfCards.isEmpty || noRoomToFitCards() {
@@ -129,7 +131,7 @@ class PlaySetViewController: UIViewController {
     }
     
     private func handleMatchedCardsState() {
-        if deck.selectedCardsAreMatched() {
+        if deck.cardsAreMatched {
             handleOutOfCardsState()
             deck.replaceMatchedCards()
             swapMatchedCards()

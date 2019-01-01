@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PlayingCard: Hashable, CustomStringConvertible {
+struct PlayingCard: Equatable, CustomStringConvertible {
     var description: String { return "\(shape.rawValue) \(amount.rawValue) \(shading) \(color) \(cardState)" }
     
     private(set) var shape: Shape
@@ -46,5 +46,4 @@ struct PlayingCard: Hashable, CustomStringConvertible {
         case notSelected
         case matched
     }
-    
 }
