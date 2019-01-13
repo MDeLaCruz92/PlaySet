@@ -140,12 +140,10 @@ class PlaySetViewController: UIViewController {
         scoreLabel.text = "Score: \(deck.scoreCount)"
     }
     
-    private func swapMatchedCards() {
-         print("deckOfCards: \(deck.deckOfCards.count)")
-        
+    private func swapMatchedCards() {        
         deck.selectedCardsIndex.forEach { index in
             let card = deck.gameDeck[index]
-            let cardAttributedString = NSAttributedString(string: setupCardShapeAmount(card), attributes: setupCardAttributes(card))
+            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
             cardButtons[index].setAttributedTitle(cardAttributedString, for: .normal)
         }
         deck.resetSelectedCards()
@@ -154,7 +152,7 @@ class PlaySetViewController: UIViewController {
     private func updateViewFromModel() {
         for (index, button)  in cardButtons.enumerated() {
             let card = deck.gameDeck[index]
-            let cardAttributedString = NSAttributedString(string: setupCardShapeAmount(card), attributes: setupCardAttributes(card))
+            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
             button.setAttributedTitle(cardAttributedString, for: .normal)
         }
     }
@@ -171,14 +169,6 @@ class PlaySetViewController: UIViewController {
         case .faded: return cardFadedAttributes
         case .filled: return cardFilledAttributes
         case .notFilled: return cardNotFilledAttributes
-        }
-    }
-    
-    private func setupCardShapeAmount(_ card: PlayingCard) -> String { //TODO: should be in model. It has nothing to do with UI
-        switch card.amount {
-        case .one: return card.shape.rawValue
-        case .two: return card.shape.rawValue + card.shape.rawValue
-        case .three: return card.shape.rawValue + card.shape.rawValue + card.shape.rawValue
         }
     }
     

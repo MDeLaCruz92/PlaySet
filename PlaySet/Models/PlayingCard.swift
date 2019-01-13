@@ -44,6 +44,5 @@ struct PlayingCard: Equatable, CustomStringConvertible {
     enum CardState {
         case selected
         case notSelected
-        case matched
     }
 }

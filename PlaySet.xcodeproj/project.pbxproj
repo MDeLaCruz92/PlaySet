@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0026548F21A8381300C9D471 /* PlayingCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0026548E21A8381300C9D471 /* PlayingCardDeck.swift */; };
+		00473D0121EBB32B00B3F471 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D0021EBB32B00B3F471 /* Int+Extension.swift */; };
 		821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F20C121928520008DEC47 /* UIButton+Extension.swift */; };
 		8253DA02215994A700684C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA01215994A700684C13 /* AppDelegate.swift */; };
 		8253DA07215994A700684C13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA05215994A700684C13 /* Main.storyboard */; };
@@ -16,20 +17,15 @@
 		8253DA182159C53B00684C13 /* RGBValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA172159C53B00684C13 /* RGBValue.swift */; };
 		8253DA1A2159C69900684C13 /* AnchorLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA192159C69900684C13 /* AnchorLayout.swift */; };
 		8253DA1E215C853800684C13 /* ButtonDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA1D215C853800684C13 /* ButtonDesign.swift */; };
-		8253DA20215F26E800684C13 /* CardDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA1F215F26E800684C13 /* CardDemo.swift */; };
 		82E0CF6D2169767F0097198C /* PlaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF6B2169767F0097198C /* PlaySetViewController.swift */; };
 		82E0CF6E2169767F0097198C /* PlaySetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E0CF6C2169767F0097198C /* PlaySetViewController.xib */; };
-		82E0CF7021697E7A0097198C /* PlayingCardDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF6F21697E7A0097198C /* PlayingCardDemo.swift */; };
-		82E0CF72216981180097198C /* PlayingCardDeckDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF71216981180097198C /* PlayingCardDeckDemo.swift */; };
-		82E0CF742169AC670097198C /* CoreNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF732169AC670097198C /* CoreNavigation.swift */; };
-		82E0CF772169BFFF0097198C /* CoreNavigation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF762169BFFF0097198C /* CoreNavigation+Extension.swift */; };
-		82E0CF7B2169C8800097198C /* CoreNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF7A2169C8800097198C /* CoreNavigationController.swift */; };
 		82E0CF7F216A7A890097198C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF7E216A7A890097198C /* UIView+Extension.swift */; };
 		82E0CF81216AE7950097198C /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CF80216AE7950097198C /* PlayingCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0026548E21A8381300C9D471 /* PlayingCardDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCardDeck.swift; sourceTree = "<group>"; };
+		00473D0021EBB32B00B3F471 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		821F20C121928520008DEC47 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		8253D9FE215994A700684C13 /* PlaySet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaySet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8253DA01215994A700684C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,14 +36,8 @@
 		8253DA172159C53B00684C13 /* RGBValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBValue.swift; sourceTree = "<group>"; };
 		8253DA192159C69900684C13 /* AnchorLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchorLayout.swift; sourceTree = "<group>"; };
 		8253DA1D215C853800684C13 /* ButtonDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDesign.swift; sourceTree = "<group>"; };
-		8253DA1F215F26E800684C13 /* CardDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDemo.swift; sourceTree = "<group>"; };
 		82E0CF6B2169767F0097198C /* PlaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySetViewController.swift; sourceTree = "<group>"; };
 		82E0CF6C2169767F0097198C /* PlaySetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaySetViewController.xib; sourceTree = "<group>"; };
-		82E0CF6F21697E7A0097198C /* PlayingCardDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardDemo.swift; sourceTree = "<group>"; };
-		82E0CF71216981180097198C /* PlayingCardDeckDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardDeckDemo.swift; sourceTree = "<group>"; };
-		82E0CF732169AC670097198C /* CoreNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNavigation.swift; sourceTree = "<group>"; };
-		82E0CF762169BFFF0097198C /* CoreNavigation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNavigation+Extension.swift"; sourceTree = "<group>"; };
-		82E0CF7A2169C8800097198C /* CoreNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNavigationController.swift; sourceTree = "<group>"; };
 		82E0CF7E216A7A890097198C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		82E0CF80216AE7950097198C /* PlayingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,7 +77,6 @@
 				82E0CF752169BF800097198C /* Extensions */,
 				8253DA14215994DF00684C13 /* ViewControllers */,
 				8253DA05215994A700684C13 /* Main.storyboard */,
-				82E0CF732169AC670097198C /* CoreNavigation.swift */,
 				8253DA01215994A700684C13 /* AppDelegate.swift */,
 				8253DA13215994C300684C13 /* Supporting Files */,
 			);
@@ -109,7 +98,6 @@
 			children = (
 				82E0CF6B2169767F0097198C /* PlaySetViewController.swift */,
 				82E0CF6C2169767F0097198C /* PlaySetViewController.xib */,
-				82E0CF7A2169C8800097198C /* CoreNavigationController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -117,9 +105,6 @@
 		8253DA15215994E400684C13 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8253DA1F215F26E800684C13 /* CardDemo.swift */,
-				82E0CF6F21697E7A0097198C /* PlayingCardDemo.swift */,
-				82E0CF71216981180097198C /* PlayingCardDeckDemo.swift */,
 				82E0CF80216AE7950097198C /* PlayingCard.swift */,
 				0026548E21A8381300C9D471 /* PlayingCardDeck.swift */,
 			);
@@ -139,9 +124,9 @@
 		82E0CF752169BF800097198C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				82E0CF762169BFFF0097198C /* CoreNavigation+Extension.swift */,
 				82E0CF7E216A7A890097198C /* UIView+Extension.swift */,
 				821F20C121928520008DEC47 /* UIButton+Extension.swift */,
+				00473D0021EBB32B00B3F471 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -218,19 +203,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82E0CF742169AC670097198C /* CoreNavigation.swift in Sources */,
 				0026548F21A8381300C9D471 /* PlayingCardDeck.swift in Sources */,
-				8253DA20215F26E800684C13 /* CardDemo.swift in Sources */,
 				82E0CF6D2169767F0097198C /* PlaySetViewController.swift in Sources */,
-				82E0CF7021697E7A0097198C /* PlayingCardDemo.swift in Sources */,
-				82E0CF772169BFFF0097198C /* CoreNavigation+Extension.swift in Sources */,
 				82E0CF81216AE7950097198C /* PlayingCard.swift in Sources */,
 				8253DA182159C53B00684C13 /* RGBValue.swift in Sources */,
 				821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */,
 				82E0CF7F216A7A890097198C /* UIView+Extension.swift in Sources */,
-				82E0CF7B2169C8800097198C /* CoreNavigationController.swift in Sources */,
 				8253DA1A2159C69900684C13 /* AnchorLayout.swift in Sources */,
-				82E0CF72216981180097198C /* PlayingCardDeckDemo.swift in Sources */,
+				00473D0121EBB32B00B3F471 /* Int+Extension.swift in Sources */,
 				8253DA02215994A700684C13 /* AppDelegate.swift in Sources */,
 				8253DA1E215C853800684C13 /* ButtonDesign.swift in Sources */,
 			);
