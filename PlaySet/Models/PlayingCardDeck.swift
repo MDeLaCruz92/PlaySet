@@ -106,7 +106,7 @@ struct PlayingCardDeck {
     }
     
     // MARK: Private Methods
-    private mutating func draw() -> PlayingCard? {
+    mutating func draw() -> PlayingCard? {
         if !deckOfCards.isEmpty {
             return deckOfCards.remove(at: deckOfCards.count.arc4random)
         } else {
