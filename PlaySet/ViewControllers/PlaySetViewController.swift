@@ -15,6 +15,7 @@ class PlaySetViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var dealCardsButton: UIButton!
     
+    //TODO: Fix and adjust all buttons to work with PlayingCardView's button
     @IBOutlet var startingCardsButtons: [UIButton]!
     @IBOutlet var remainingCardsButtons: [UIButton]!
     @IBOutlet var cardButtons: [UIButton]!
@@ -57,7 +58,7 @@ class PlaySetViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        deck.setupGameDeck(amountOfCards: cardButtons.count)
+//        deck.setupGameDeck(amountOfCards: cardButtons.count)
         updateViewFromModel()
     }
     
@@ -118,8 +119,8 @@ class PlaySetViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-        cardButtons.forEach { $0.setupButtonUI() }
-        remainingCardsButtons.forEach { $0.isHidden = true }
+//        cardButtons.forEach { $0.setupButtonUI() }
+//        remainingCardsButtons.forEach { $0.isHidden = true }
     }
     
     private func handleOutOfCardsState() {
@@ -150,11 +151,11 @@ class PlaySetViewController: UIViewController {
     }
 
     private func updateViewFromModel() {
-        for (index, button)  in cardButtons.enumerated() {
-            let card = deck.gameDeck[index]
-            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
-            button.setAttributedTitle(cardAttributedString, for: .normal)
-        }
+//        for (index, button)  in cardButtons.enumerated() {
+//            let card = deck.gameDeck[index]
+//            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
+//            button.setAttributedTitle(cardAttributedString, for: .normal)
+//        }
     }
     
     private func setupCardAttributes(_ card: PlayingCard) -> [NSAttributedString.Key : Any]   {
