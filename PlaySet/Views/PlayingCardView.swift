@@ -10,7 +10,7 @@ import UIKit
 
 class PlayingCardView: UIView {
     
-    var shape: String = "square" { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var shape: String = "▲" { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var color: String = "red"  { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var amount: Int = 1 { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var shading: String = "shading" { didSet { setNeedsDisplay(); setNeedsLayout() } }
@@ -28,6 +28,7 @@ class PlayingCardView: UIView {
         #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill()
         roundedRect.fill()
         
+        let grid = Grid(layout: .dimensions(rowCount: 6, columnCount: 6), frame: roundedRect.bounds)
 //        cardFeatureString.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
         drawCircle()
     }

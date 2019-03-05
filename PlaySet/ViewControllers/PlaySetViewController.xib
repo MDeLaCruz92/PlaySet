@@ -17,7 +17,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="SLh-OS-Xrr" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="SLh-OS-Xrr">
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -54,7 +54,7 @@
                         </button>
                     </subviews>
                 </stackView>
-                <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-uM-9hP">
+                <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-uM-9hP" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
                     <rect key="frame" x="16" y="136.66666666666669" width="343" height="548.66666666666652"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
