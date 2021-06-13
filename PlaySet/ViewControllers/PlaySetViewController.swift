@@ -15,11 +15,6 @@ class PlaySetViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var dealCardsButton: UIButton!
     
-    //TODO: Fix and adjust all buttons to work with PlayingCardView's button
-    @IBOutlet var startingCardsButtons: [UIButton]!
-    @IBOutlet var remainingCardsButtons: [UIButton]!
-    @IBOutlet var cardButtons: [UIButton]!
-    
     private let selectionLimit = 3
     private let dealCardsAmount = 3
     
@@ -31,18 +26,18 @@ class PlaySetViewController: UIViewController {
         handleMatchedCardsState()
         handleDealCardsButtonState()
         
-        if let cardNumber = cardButtons.index(of: sender) {
-            deck.chooseCard(at: cardNumber)
-            cardSelectionResult(button: sender)
-        }
+//        if let cardNumber = cardButtons.firstIndex(of: sender) {
+//            deck.chooseCard(at: cardNumber)
+//            cardSelectionResult(button: sender)
+//        }
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
         if deck.cardsAreMatched {
             handleMatchedCardsState()
         } else {
-            deck.penalizeDrawing(visibleCards: cardButtons.filter { $0.isHidden == false }.count)
-            dealFromRemainingCards()
+//            deck.penalizeDrawing(visibleCards: cardButtons.filter { $0.isHidden == false }.count)
+//            dealFromRemainingCards()
             scoreLabel.text = "Score: \(deck.scoreCount)"
         }
         
@@ -95,21 +90,22 @@ class PlaySetViewController: UIViewController {
     }
     
     private func noRoomToFitCards() -> Bool {
-        return cardButtons.allSatisfy({$0.isHidden == false })
+//        return cardButtons.allSatisfy({$0.isHidden == false })
+        return false
     }
     
-    private func dealFromRemainingCards() {
-        var count = 0
-        remainingCardsButtons.forEach { button in
-            if count < dealCardsAmount {
-                if button.isHidden {
-                    button.isHidden = false
-                    count += 1
-                }
-            }
-        }
-        count = 0
-    }
+//    private func dealFromRemainingCards() {
+//        var count = 0
+//        remainingCardsButtons.forEach { button in
+//            if count < dealCardsAmount {
+//                if button.isHidden {
+//                    button.isHidden = false
+//                    count += 1
+//                }
+//            }
+//        }
+//        count = 0
+//    }
     
     private func deselectAllCardsIfNescessary() {
         if selectedCardButtons.count == selectionLimit {
@@ -126,7 +122,7 @@ class PlaySetViewController: UIViewController {
     private func handleOutOfCardsState() {
         if deck.deckOfCards.isEmpty {
             deck.selectedCardsIndex.forEach { index in
-                cardButtons[index].disableButton()
+//                cardButtons[index].disableButton()
             }
         }
     }
@@ -145,7 +141,7 @@ class PlaySetViewController: UIViewController {
         deck.selectedCardsIndex.forEach { index in
             let card = deck.gameDeck[index]
             let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
-            cardButtons[index].setAttributedTitle(cardAttributedString, for: .normal)
+//            cardButtons[index].setAttributedTitle(cardAttributedString, for: .normal)
         }
         deck.resetSelectedCards()
     }
@@ -188,12 +184,12 @@ class PlaySetViewController: UIViewController {
     
     private func startNewGame() {
         dealCardsButton.enableButton()
-        cardButtons.forEach { $0.enableButton() }
-        remainingCardsButtons.forEach { $0.isHidden = true }
+//        cardButtons.forEach { $0.enableButton() }
+//        remainingCardsButtons.forEach { $0.isHidden = true }
         resetCardsTouchSelection()
         deck = PlayingCardDeck()
         deck.resetSelectedCards()
-        deck.setupGameDeck(amountOfCards: cardButtons.count)
+//        deck.setupGameDeck(amountOfCards: cardButtons.count)
         updateViewFromModel()
     }
 

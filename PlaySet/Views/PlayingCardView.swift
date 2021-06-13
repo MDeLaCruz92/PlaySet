@@ -12,7 +12,7 @@ class PlayingCardView: UIView {
     
     var shape: String = "▲" { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var color: String = "red"  { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var amount: Int = 1 { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var amount: Int = 3  { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var shading: String = "shading" { didSet { setNeedsDisplay(); setNeedsLayout() } }
     
     private var cardFeatureString: NSAttributedString {
@@ -20,6 +20,7 @@ class PlayingCardView: UIView {
     }
     
     private lazy var upperLeftCornerButton = createCardButton()
+    private lazy var secondButton = createCardButton()
     
     // MARK: Override methods
     override func draw(_ rect: CGRect) {
@@ -28,16 +29,16 @@ class PlayingCardView: UIView {
         #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill()
         roundedRect.fill()
         
-        let grid = Grid(layout: .dimensions(rowCount: 6, columnCount: 6), frame: roundedRect.bounds)
-//        cardFeatureString.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
-        drawCircle()
+//        let grid = Grid(layout: .dimensions(rowCount: 6, columnCount: 6), frame: roundedRect.bounds)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        let grid = Grid(layout: .dimensions(rowCount: GridMatrix.rowCount, columnCount: GridMatrix.columnCount), frame: bounds)
         configureCardButton(upperLeftCornerButton)
-        upperLeftCornerButton.frame.origin = bounds.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
+        upperLeftCornerButton.frame.origin = grid.frame.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
+        secondButton.frame.origin = grid.frame.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
     }
     
     // MARK: Private methods
@@ -51,7 +52,8 @@ class PlayingCardView: UIView {
 
     private func createCardButton() -> UIButton  {
         let button = UIButton()
-       addSubview(button)
+        button.setupButtonUI()
+        addSubview(button)
         return button
     }
     
@@ -61,13 +63,14 @@ class PlayingCardView: UIView {
         button.sizeToFit()
     }
     
-    private func drawCircle() {
-        let path = UIBezierPath()
-        path.addArc(withCenter: CGPoint(x: bounds.midX, y: bounds.midY), radius: 100.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
-        path.lineWidth = 5.0
-        path.stroke()
-        path.fill()
-    }
+//    private func drawCircle() {
+//        let path = UIBezierPath()
+////        path.addArc(withCenter: CGPoint(x: bounds.origin, y: bounds.origin), radius: 100.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
+////        path.addArc(withCenter: grid.frame.origin, radius: 100.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
+//        path.lineWidth = 5.0
+//        path.stroke()
+//        path.fill()
+//    }
 }
 
 //MARK: Extensions
@@ -78,6 +81,12 @@ extension PlayingCardView {
         static let cornerOffsetToCornerRadius: CGFloat = 0.33
         static let faceCardImageSizeToBoundsSize: CGFloat = 0.75
     }
+    
+    private struct GridMatrix {
+        static let rowCount: Int = 3
+        static let columnCount: Int = 7
+    }
+    
     private var cornerRadius: CGFloat {
         return bounds.size.height * SizeRatio.cornerRadiusToBoundsHeight
     }
