@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +29,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nEk-Vk-Pfd">
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nEk-Vk-Pfd">
                             <rect key="frame" x="117.66666666666666" y="0.0" width="107.66666666666666" height="30"/>
                             <color key="backgroundColor" red="0.0001238503465" green="0.58680621960000001" blue="0.8300506473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -41,7 +40,7 @@
                                 <action selector="dealCardsButton:" destination="-1" eventType="touchUpInside" id="VCr-KG-LP8"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsu-kW-uhN">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsu-kW-uhN">
                             <rect key="frame" x="235.33333333333334" y="0.0" width="107.66666666666666" height="30"/>
                             <color key="backgroundColor" red="0.0001238503465" green="0.58680621960000001" blue="0.8300506473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -63,6 +62,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="u5I-Xq-441"/>
             <color key="backgroundColor" red="1" green="0.49729342329999998" blue="0.083027312660000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="u5I-Xq-441" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Moe-uM-9hP" secondAttribute="trailing" constant="16" id="3eh-Ab-Rvr"/>
@@ -76,7 +76,6 @@
                 <constraint firstItem="u5I-Xq-441" firstAttribute="trailing" secondItem="pcK-Nm-Gj9" secondAttribute="trailing" constant="16" id="nFg-sF-8tu"/>
                 <constraint firstItem="pcK-Nm-Gj9" firstAttribute="leading" secondItem="u5I-Xq-441" secondAttribute="leading" constant="16" id="z0c-ne-C6j"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="u5I-Xq-441"/>
             <point key="canvasLocation" x="-653" y="-18"/>
         </view>
     </objects>

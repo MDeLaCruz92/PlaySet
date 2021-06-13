@@ -11,7 +11,7 @@ import UIKit
 extension UIButton {
     func setupCardButton() -> UIButton {
         let button = UIButton(type: .system)
-        button.backgroundColor = .blue
+        button.layer.borderColor = UIColor.gray.cgColor
         button.layer.cornerRadius = 5
         return button
     }

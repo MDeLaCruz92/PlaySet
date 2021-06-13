@@ -26,7 +26,7 @@ struct PlayingCardDeck {
     
     private let selectionLimit = 3
     private let matchPoints = 2
-    private  let misMatchPenalty = 2
+    private let misMatchPenalty = 2
     private let matchTimeBonus = 3
     private let maxTimePenalty = 4
     private let maxTimer = 10

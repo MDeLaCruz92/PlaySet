@@ -10,29 +10,31 @@ import UIKit
 
 extension UIButton {
     func setupButtonUI() {
-        self.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-        self.setTitleColor(.white, for: .normal)
-        self.layer.cornerRadius = 8.0
+        backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+        layer.borderColor = UIColor.gray.cgColor
+        setTitleColor(.white, for: .normal)
+        layer.cornerRadius = 8.0
+        layer.borderWidth = 3.0
     }
     
     func applyTouchSelectionUI() {
-        self.layer.borderWidth = 3.0
-        self.layer.borderColor = UIColor.blue.cgColor
+        layer.borderWidth = 3.0
+        layer.borderColor = UIColor.blue.cgColor
     }
     
     func applyTouchDeselectionUI() {
-        self.layer.borderWidth = 0.0
-        self.layer.borderColor = UIColor.white.cgColor
+        layer.borderWidth = 0.0
+        layer.borderColor = UIColor.white.cgColor
     }
     
     func disableButton() {
-        self.isEnabled = false
-        self.alpha = 0.5
+        isEnabled = false
+        alpha = 0.5
     }
     
     func enableButton() {
-        self.isEnabled = true
-        self.alpha = 1
+        isEnabled = true
+        alpha = 1
     }
 }
 
