@@ -19,10 +19,10 @@ class PlayingCardView: UIView {
         return centeredAttributedString(featureString, fontSize: cornerFontSize)
     }
     
-    private lazy var upperLeftCornerButton = createCardButton()
-    private lazy var secondButton = createCardButton()
+    private lazy var cardButton = createCardButton()
     
     // MARK: Override methods
+    
     override func draw(_ rect: CGRect) {
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()
@@ -36,12 +36,12 @@ class PlayingCardView: UIView {
         super.layoutSubviews()
         
         let grid = Grid(layout: .dimensions(rowCount: GridMatrix.rowCount, columnCount: GridMatrix.columnCount), frame: bounds)
-        configureCardButton(upperLeftCornerButton)
-        upperLeftCornerButton.frame.origin = grid.frame.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
-        secondButton.frame.origin = grid.frame.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
+        configureCardButton(cardButton)
+        cardButton.frame.origin = grid.frame.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
     }
     
     // MARK: Private methods
+    
     private func centeredAttributedString(_ string: String, fontSize: CGFloat) -> NSAttributedString {
         var font = UIFont.preferredFont(forTextStyle: .body).withSize(fontSize)
         font = UIFontMetrics(forTextStyle: .body).scaledFont(for: font)
@@ -74,6 +74,7 @@ class PlayingCardView: UIView {
 }
 
 //MARK: Extensions
+
 extension PlayingCardView {
     private struct SizeRatio {
         static let cornerFontSizeToBoundsHeight: CGFloat = 0.085
