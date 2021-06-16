@@ -163,7 +163,7 @@ class PlaySetViewController: UIViewController {
         ]
         
         switch card.shading {
-        case .faded: return cardFadedAttributes
+        case .striped: return cardFadedAttributes
         case .filled: return cardFilledAttributes
         case .notFilled: return cardNotFilledAttributes
         }

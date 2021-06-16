@@ -32,7 +32,7 @@ struct PlayingCard: Equatable, CustomStringConvertible {
     enum Shading: String, CaseIterable {
         case filled
         case notFilled
-        case faded // will be striped later
+        case striped // will be striped later
     }
     
     enum Color: String,  CaseIterable {

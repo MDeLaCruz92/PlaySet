@@ -20,6 +20,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zbk-Vr-Qku" customClass="GridView" customModule="PlaySet" customModuleProvider="target">
+                    <rect key="frame" x="16" y="60" width="343" height="652"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pcK-Nm-Gj9">
                     <rect key="frame" x="16" y="728" width="343" height="30"/>
                     <subviews>
@@ -53,30 +58,25 @@
                         </button>
                     </subviews>
                 </stackView>
-                <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-uM-9hP" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
-                    <rect key="frame" x="16" y="136.66666666666669" width="343" height="548.66666666666652"/>
+                <view opaque="NO" contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-uM-9hP" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
+                    <rect key="frame" x="16" y="239.66666666666663" width="343" height="343"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="Moe-uM-9hP" secondAttribute="height" multiplier="5:8" id="lXk-xq-qwY"/>
-                        <constraint firstAttribute="width" priority="750" constant="800" id="oI4-97-mGf"/>
-                    </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="u5I-Xq-441"/>
             <color key="backgroundColor" red="1" green="0.49729342329999998" blue="0.083027312660000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
-                <constraint firstItem="u5I-Xq-441" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Moe-uM-9hP" secondAttribute="trailing" constant="16" id="3eh-Ab-Rvr"/>
-                <constraint firstItem="Moe-uM-9hP" firstAttribute="centerY" secondItem="u5I-Xq-441" secondAttribute="centerY" id="DfS-nB-fPb"/>
+                <constraint firstItem="Zbk-Vr-Qku" firstAttribute="top" secondItem="u5I-Xq-441" secondAttribute="top" constant="16" id="2rF-UU-xNm"/>
+                <constraint firstItem="u5I-Xq-441" firstAttribute="trailing" secondItem="Zbk-Vr-Qku" secondAttribute="trailing" constant="16" id="88U-JG-Prr"/>
                 <constraint firstItem="u5I-Xq-441" firstAttribute="bottom" secondItem="pcK-Nm-Gj9" secondAttribute="bottom" constant="20" id="ESP-qB-GFa"/>
                 <constraint firstItem="pcK-Nm-Gj9" firstAttribute="centerX" secondItem="SLh-OS-Xrr" secondAttribute="centerX" id="Rkx-KE-len"/>
-                <constraint firstItem="Moe-uM-9hP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="u5I-Xq-441" secondAttribute="top" constant="16" id="SMi-Nh-03n"/>
-                <constraint firstItem="pcK-Nm-Gj9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Moe-uM-9hP" secondAttribute="bottom" constant="16" id="SqU-nb-RVf"/>
-                <constraint firstItem="Moe-uM-9hP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u5I-Xq-441" secondAttribute="leading" constant="16" id="ZIh-ZM-B04"/>
-                <constraint firstItem="Moe-uM-9hP" firstAttribute="centerX" secondItem="u5I-Xq-441" secondAttribute="centerX" id="iix-v5-OFU"/>
+                <constraint firstItem="pcK-Nm-Gj9" firstAttribute="top" secondItem="Zbk-Vr-Qku" secondAttribute="bottom" constant="16" id="ZgU-Cu-V3z"/>
+                <constraint firstItem="Zbk-Vr-Qku" firstAttribute="leading" secondItem="u5I-Xq-441" secondAttribute="leading" constant="16" id="g9f-xF-0rg"/>
                 <constraint firstItem="u5I-Xq-441" firstAttribute="trailing" secondItem="pcK-Nm-Gj9" secondAttribute="trailing" constant="16" id="nFg-sF-8tu"/>
                 <constraint firstItem="pcK-Nm-Gj9" firstAttribute="leading" secondItem="u5I-Xq-441" secondAttribute="leading" constant="16" id="z0c-ne-C6j"/>
             </constraints>
-            <point key="canvasLocation" x="-653" y="-18"/>
+            <point key="canvasLocation" x="-766" y="-24"/>
         </view>
     </objects>
 </document>

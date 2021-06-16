@@ -8,72 +8,97 @@
 
 import UIKit
 
+@IBDesignable
 class PlayingCardView: UIView {
-    
-    var shape: String = "▲" { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var color: String = "red"  { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var amount: Int = 3  { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var shading: String = "shading" { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    
-    private var cardFeatureString: NSAttributedString {
-        return centeredAttributedString(featureString, fontSize: cornerFontSize)
-    }
-    
-    private lazy var cardButton = createCardButton()
-    
+                    
     // MARK: Override methods
     
     override func draw(_ rect: CGRect) {
-        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        roundedRect.addClip()
-        #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill()
+        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: 16)
+        #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1).setFill()
         roundedRect.fill()
+                
+        circlePath()
         
-//        let grid = Grid(layout: .dimensions(rowCount: 6, columnCount: 6), frame: roundedRect.bounds)
+        trianglePath()
+        
+        squarePath()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let grid = Grid(layout: .dimensions(rowCount: GridMatrix.rowCount, columnCount: GridMatrix.columnCount), frame: bounds)
-        configureCardButton(cardButton)
-        cardButton.frame.origin = grid.frame.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
     }
     
-    // MARK: Private methods
-    
-    private func centeredAttributedString(_ string: String, fontSize: CGFloat) -> NSAttributedString {
-        var font = UIFont.preferredFont(forTextStyle: .body).withSize(fontSize)
-        font = UIFontMetrics(forTextStyle: .body).scaledFont(for: font)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        return NSAttributedString(string: string, attributes: [.paragraphStyle: paragraphStyle, .font: font])
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setNeedsDisplay()
+        setNeedsLayout()
     }
-
-    private func createCardButton() -> UIButton  {
-        let button = UIButton()
-        button.setupButtonUI()
-        addSubview(button)
-        return button
-    }
-    
-    private func configureCardButton(_ button: UIButton) {
-        button.setAttributedTitle(cardFeatureString, for: .normal)
-        button.frame.size = CGSize.zero
-        button.sizeToFit()
-    }
-    
-//    private func drawCircle() {
-//        let path = UIBezierPath()
-////        path.addArc(withCenter: CGPoint(x: bounds.origin, y: bounds.origin), radius: 100.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
-////        path.addArc(withCenter: grid.frame.origin, radius: 100.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
-//        path.lineWidth = 5.0
-//        path.stroke()
-//        path.fill()
-//    }
 }
 
-//MARK: Extensions
+// MARK: - Shapes Path
+
+extension PlayingCardView {
+    
+    private func circlePath() {
+        colorPath(.cyan)
+        
+        let path = UIBezierPath()
+        path.addArc(withCenter: CGPoint(x: bounds.midX, y: bounds.midY), radius: 20, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
+        path.lineWidth = 5.0
+        path.stroke()
+        path.fill()
+    }
+    
+    private func trianglePath() {
+        colorPath(.green)
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 40, y: 20))
+        path.addLine(to: CGPoint(x: 50, y: 60))
+        path.addLine(to: CGPoint(x: 30, y: 60))
+        path.close()
+        
+        path.lineWidth = 2.5
+        path.fill()
+        path.stroke()
+    }
+    
+    func squarePath() {
+        UIColor.orange.setFill()
+        UIColor.red.setStroke()
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 80, y: 20))
+        path.addLine(to: CGPoint(x: 110, y: 20))
+        path.addLine(to: CGPoint(x: 110, y: 50))
+        path.addLine(to: CGPoint(x: 80, y: 50))
+        path.close()
+        
+        path.lineWidth = 3.0
+        stripedPath(path: path)
+    }
+}
+
+// MARK: - Stroke and Fill
+
+extension PlayingCardView {
+    
+    func filledPath(path: UIBezierPath) {
+        path.fill()
+        path.stroke()
+    }
+    
+    func colorPath(_ color: UIColor) {
+        color.setFill()
+        UIColor.red.setStroke()
+    }
+    
+    func stripedPath(path: UIBezierPath) { // TODO: Draw the stripes for the shape. Maybe this will have to find it's way inside the path somehow
+        path.addClip()
+        path.stroke()
+    }
+}
 
 extension PlayingCardView {
     private struct SizeRatio {
@@ -81,11 +106,6 @@ extension PlayingCardView {
         static let cornerRadiusToBoundsHeight: CGFloat = 0.06
         static let cornerOffsetToCornerRadius: CGFloat = 0.33
         static let faceCardImageSizeToBoundsSize: CGFloat = 0.75
-    }
-    
-    private struct GridMatrix {
-        static let rowCount: Int = 3
-        static let columnCount: Int = 7
     }
     
     private var cornerRadius: CGFloat {
@@ -96,14 +116,6 @@ extension PlayingCardView {
     }
     private var cornerFontSize: CGFloat {
         return bounds.size.height * SizeRatio.cornerFontSizeToBoundsHeight
-    }
-    private var featureString: String {
-        switch amount {
-        case 1: return "\(shape)"
-        case 2: return " \(shape) \(shape)"
-        case 3: return " \(shape) \(shape) \(shape)"
-        default: return "?"
-        }
     }
 }
 

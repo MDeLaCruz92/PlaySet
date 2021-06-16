@@ -106,6 +106,7 @@ struct PlayingCardDeck {
     }
     
     // MARK: Private Methods
+    
     mutating func draw() -> PlayingCard? {
         if !deckOfCards.isEmpty {
             return deckOfCards.remove(at: deckOfCards.count.arc4random)
@@ -115,6 +116,7 @@ struct PlayingCardDeck {
     }
     
     // MARK: Select State
+    
     private mutating func handleSelectState(at index: Int) {
         if gameDeck[index].cardState == .selected {
             gameDeck[index].cardState = .notSelected
@@ -139,6 +141,7 @@ struct PlayingCardDeck {
     }
 
     // MARK: Match State
+    
     private mutating func handleMatchState(_ selectedCards: [PlayingCard]) {
         let cardsFeatureMatch = [shapeMatchState(selectedCards), amountMatchState(selectedCards), shadingMatchState(selectedCards), colorMatchState(selectedCards)]
         if cardsFeatureMatch.allSatisfy( { $0 == true }) {
