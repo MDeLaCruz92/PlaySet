@@ -10,12 +10,16 @@ import UIKit
 
 @IBDesignable
 class PlayingCardView: UIView {
+    
+    private lazy var grid = Grid(layout: .fixedCellSize(CGSize(width: 50, height: 50)), frame: frame)
                     
+    private lazy var roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: 16)
+
     // MARK: Override methods
     
     override func draw(_ rect: CGRect) {
-        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: 16)
         #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1).setFill()
+        
         roundedRect.fill()
                 
         circlePath()
@@ -36,7 +40,7 @@ class PlayingCardView: UIView {
     }
 }
 
-// MARK: - Shapes Path
+// MARK: - Circle Drawing
 
 extension PlayingCardView {
     
@@ -48,7 +52,13 @@ extension PlayingCardView {
         path.lineWidth = 5.0
         path.stroke()
         path.fill()
+        path.close()
     }
+}
+
+// MARK: - Triangle Drawing
+
+extension PlayingCardView {
     
     private func trianglePath() {
         colorPath(.green)
@@ -62,11 +72,23 @@ extension PlayingCardView {
         path.lineWidth = 2.5
         path.fill()
         path.stroke()
+        
+        stripedTriangle(path: path)
     }
     
+    func stripedTriangle(path: UIBezierPath) {
+        path.move(to: CGPoint(x: 30, y: 20))
+        path.addLine(to: CGPoint(x: 50, y: 20))
+        path.addClip()
+    }
+}
+
+// MARK: - Square Drawing
+
+extension PlayingCardView {
+    
     func squarePath() {
-        UIColor.orange.setFill()
-        UIColor.red.setStroke()
+        colorPath(.red)
         
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 80, y: 20))
@@ -76,7 +98,21 @@ extension PlayingCardView {
         path.close()
         
         path.lineWidth = 3.0
-        stripedPath(path: path)
+        stripedSquare(path: path)
+    }
+    
+    func stripedSquare(path: UIBezierPath) {
+        path.move(to: CGPoint(x: 100, y: 20))
+        path.addLine(to: CGPoint(x: 100, y: 80))
+        path.addClip()
+        path.close()
+        
+        path.move(to: CGPoint(x: 90, y: 20))
+        path.addLine(to: CGPoint(x: 90, y: 50))
+        path.addClip()
+        path.close()
+        
+        path.stroke()
     }
 }
 
@@ -91,14 +127,11 @@ extension PlayingCardView {
     
     func colorPath(_ color: UIColor) {
         color.setFill()
-        UIColor.red.setStroke()
-    }
-    
-    func stripedPath(path: UIBezierPath) { // TODO: Draw the stripes for the shape. Maybe this will have to find it's way inside the path somehow
-        path.addClip()
-        path.stroke()
+        UIColor.purple.setStroke()
     }
 }
+
+// MARK: - Core Graphics
 
 extension PlayingCardView {
     private struct SizeRatio {

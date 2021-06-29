@@ -41,15 +41,17 @@ struct PlayingCardDeck {
                 }
             }
         }
+
+        
     }
     
-    func setupCardShapeAmount(_ card: PlayingCard) -> String {
-        switch card.amount {
-        case .one: return card.shape.rawValue
-        case .two: return card.shape.rawValue + card.shape.rawValue
-        case .three: return card.shape.rawValue + card.shape.rawValue + card.shape.rawValue
-        }
-    }
+//    func setupCardShapeAmount(_ card: PlayingCard) -> String {
+//        switch card.amount {
+//        case .one: return card.shape.rawValue
+//        case .two: return card.shape.rawValue + card.shape.rawValue
+//        case .three: return card.shape.rawValue + card.shape.rawValue + card.shape.rawValue
+//        }
+//    }
     
     mutating func setupGameDeck(amountOfCards: Int) {
         for _ in 1...amountOfCards {

@@ -18,13 +18,13 @@ struct PlayingCard: Equatable, CustomStringConvertible {
     var cardState: CardState
     
     enum Shape: String, CaseIterable {
-        case triangle = "▲"
-        case square = "■"
-        case circle = "●"
+        case triangle
+        case square
+        case circle
     }
     
     enum Amount: Int, CaseIterable {
-        case one = 1
+        case one
         case two
         case three
     }

@@ -14,11 +14,6 @@
 		00473D1221F3F71E00B3F471 /* PlayingViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D1121F3F71D00B3F471 /* PlayingViewDemo.swift */; };
 		00473D1421F3F93100B3F471 /* PlaySetViewDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00473D1321F3F93100B3F471 /* PlaySetViewDemo.xib */; };
 		00473D1621F4736100B3F471 /* PlaySetViewControllerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D1521F4736100B3F471 /* PlaySetViewControllerDemo.swift */; };
-		00473D8A222AC29D00B3F471 /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D88222AC29D00B3F471 /* CanvasViewController.swift */; };
-		00473D8B222AC29D00B3F471 /* CanvasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00473D89222AC29D00B3F471 /* CanvasViewController.xib */; };
-		00473D8D222ADD1B00B3F471 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D8C222ADD1B00B3F471 /* Canvas.swift */; };
-		00473D8F222AF0E300B3F471 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D8E222AF0E300B3F471 /* Line.swift */; };
-		0058EB362679BA350099B106 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0058EB352679BA350099B106 /* GridView.swift */; };
 		821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F20C121928520008DEC47 /* UIButton+Extension.swift */; };
 		8253DA02215994A700684C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA01215994A700684C13 /* AppDelegate.swift */; };
 		8253DA09215994AA00684C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA08215994AA00684C13 /* Assets.xcassets */; };
@@ -37,11 +32,6 @@
 		00473D1121F3F71D00B3F471 /* PlayingViewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewDemo.swift; sourceTree = "<group>"; };
 		00473D1321F3F93100B3F471 /* PlaySetViewDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaySetViewDemo.xib; sourceTree = "<group>"; };
 		00473D1521F4736100B3F471 /* PlaySetViewControllerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySetViewControllerDemo.swift; sourceTree = "<group>"; };
-		00473D88222AC29D00B3F471 /* CanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
-		00473D89222AC29D00B3F471 /* CanvasViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CanvasViewController.xib; sourceTree = "<group>"; };
-		00473D8C222ADD1B00B3F471 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
-		00473D8E222AF0E300B3F471 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
-		0058EB352679BA350099B106 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		821F20C121928520008DEC47 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		8253D9FE215994A700684C13 /* PlaySet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaySet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8253DA01215994A700684C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +87,6 @@
 				82E0CF6B2169767F0097198C /* PlaySetViewController.swift */,
 				82E0CF6C2169767F0097198C /* PlaySetViewController.xib */,
 				00473D0321EBB43D00B3F471 /* PlayingCardView.swift */,
-				0058EB352679BA350099B106 /* GridView.swift */,
 			);
 			path = "Playing Card";
 			sourceTree = "<group>";
@@ -105,22 +94,11 @@
 		00377EDD26772ABF005E46AD /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				00377EDF26772AEF005E46AD /* Canvas */,
 				00473D1321F3F93100B3F471 /* PlaySetViewDemo.xib */,
 				00473D1521F4736100B3F471 /* PlaySetViewControllerDemo.swift */,
 				00473D1121F3F71D00B3F471 /* PlayingViewDemo.swift */,
 			);
 			path = Demo;
-			sourceTree = "<group>";
-		};
-		00377EDF26772AEF005E46AD /* Canvas */ = {
-			isa = PBXGroup;
-			children = (
-				00473D8C222ADD1B00B3F471 /* Canvas.swift */,
-				00473D88222AC29D00B3F471 /* CanvasViewController.swift */,
-				00473D89222AC29D00B3F471 /* CanvasViewController.xib */,
-			);
-			path = Canvas;
 			sourceTree = "<group>";
 		};
 		8253D9F5215994A700684C13 = {
@@ -166,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				00473D0521EC043600B3F471 /* Grid.swift */,
-				00473D8E222AF0E300B3F471 /* Line.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -239,7 +216,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00473D8B222AC29D00B3F471 /* CanvasViewController.xib in Resources */,
 				8253DA0C215994AA00684C13 /* LaunchScreen.storyboard in Resources */,
 				8253DA09215994AA00684C13 /* Assets.xcassets in Resources */,
 				00473D1421F3F93100B3F471 /* PlaySetViewDemo.xib in Resources */,
@@ -256,9 +232,7 @@
 			files = (
 				0026548F21A8381300C9D471 /* PlayingCardDeck.swift in Sources */,
 				00473D1221F3F71E00B3F471 /* PlayingViewDemo.swift in Sources */,
-				00473D8F222AF0E300B3F471 /* Line.swift in Sources */,
 				82E0CF6D2169767F0097198C /* PlaySetViewController.swift in Sources */,
-				00473D8D222ADD1B00B3F471 /* Canvas.swift in Sources */,
 				82E0CF81216AE7950097198C /* PlayingCard.swift in Sources */,
 				00473D0621EC043600B3F471 /* Grid.swift in Sources */,
 				821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */,
@@ -267,8 +241,6 @@
 				82E0CF7F216A7A890097198C /* UIView+Extension.swift in Sources */,
 				00473D0121EBB32B00B3F471 /* Int+Extension.swift in Sources */,
 				8253DA02215994A700684C13 /* AppDelegate.swift in Sources */,
-				00473D8A222AC29D00B3F471 /* CanvasViewController.swift in Sources */,
-				0058EB362679BA350099B106 /* GridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

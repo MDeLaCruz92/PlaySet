@@ -22,6 +22,7 @@ class PlaySetViewController: UIViewController {
     private var selectedCardButtons = Set<UIButton>()
     
     // MARK: Action Methods
+    
     @IBAction func touchCard(_ sender: UIButton) {
         handleMatchedCardsState()
         handleDealCardsButtonState()
@@ -49,6 +50,7 @@ class PlaySetViewController: UIViewController {
     }
     
     //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +60,7 @@ class PlaySetViewController: UIViewController {
     }
     
     // MARK: Private methods
+    
     private func cardSelectionResult(button: UIButton) {
         deselectAllCardsIfNescessary()
         
@@ -140,7 +143,7 @@ class PlaySetViewController: UIViewController {
     private func swapMatchedCards() {        
         deck.selectedCardsIndex.forEach { index in
             let card = deck.gameDeck[index]
-            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
+//            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
 //            cardButtons[index].setAttributedTitle(cardAttributedString, for: .normal)
         }
         deck.resetSelectedCards()
