@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaySetViewController" customModule="PlaySet" customModuleProvider="target">
             <connections>
                 <outlet property="dealCardsButton" destination="nEk-Vk-Pfd" id="O99-jj-PCT"/>
+                <outlet property="playingCardView" destination="Zbk-Vr-Qku" id="VNm-CM-Dvs"/>
                 <outlet property="scoreLabel" destination="tDH-ca-mJZ" id="ndD-px-7tU"/>
                 <outlet property="view" destination="SLh-OS-Xrr" id="eHZ-Z5-1VT"/>
             </connections>
@@ -20,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zbk-Vr-Qku" customClass="GridView" customModule="PlaySet" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zbk-Vr-Qku" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
                     <rect key="frame" x="16" y="60" width="343" height="652"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,11 +59,6 @@
                         </button>
                     </subviews>
                 </stackView>
-                <view opaque="NO" contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-uM-9hP" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
-                    <rect key="frame" x="16" y="239.66666666666663" width="343" height="343"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="u5I-Xq-441"/>
             <color key="backgroundColor" red="1" green="0.49729342329999998" blue="0.083027312660000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
