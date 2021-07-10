@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zbk-Vr-Qku" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
+                <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Zbk-Vr-Qku" customClass="PlayingCardView" customModule="PlaySet" customModuleProvider="target">
                     <rect key="frame" x="16" y="60" width="343" height="652"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -56,7 +56,7 @@ class PlaySetViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-//        deck.setupGameDeck(amountOfCards: cardButtons.count)
+        deck.setupGameDeck(amountOfCards: 81)
         updateViewFromModel()
     }
     
@@ -159,6 +159,15 @@ class PlaySetViewController: UIViewController {
 //            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
 //            button.setAttributedTitle(cardAttributedString, for: .normal)
 //        }
+        
+        playingCardView.amountOfCells = deck.gameDeck.count
+        playingCardView.createGridLayout()
+    }
+    
+    private func setupCardAttributes() {
+        for _ in 0...deck.gameDeck.count {
+            
+        }
     }
     
     private func setupCardAttributes(_ card: PlayingCard) -> [NSAttributedString.Key : Any]   {
