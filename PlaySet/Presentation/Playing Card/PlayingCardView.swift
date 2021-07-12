@@ -17,7 +17,7 @@ class PlayingCardView: UIView {
     var color: UIColor = .green { didSet { updateLayoutAndDisplay() } }
     var shade: String = "" { didSet { updateLayoutAndDisplay() } }
     var shape: String = "" { didSet { updateLayoutAndDisplay() } }
-    var amountOfShapes: Int = 2 { didSet { updateLayoutAndDisplay() } }
+    var amountOfShapes: Int = 3 { didSet { updateLayoutAndDisplay() } }
     
     private func createCardView() {
         let view = UIView()
@@ -83,7 +83,14 @@ extension PlayingCardView {
         for index in 0...amountOfCells - 1 {
             guard let gridCell = grid[index] else { return }
             colorPath(color)
-            drawCircle(gridCell: gridCell)
+//            drawCircle(gridCell: gridCell)
+            
+            let path = UIBezierPath()
+            drawSquare(with: path, gridCell: gridCell)
+//            drawTriangle(path: path, gridCell: gridCell)
+            
+            path.fill()
+            path.stroke()
         }
     }
 }
@@ -98,7 +105,7 @@ extension PlayingCardView {
         static let offSet: CGFloat = 19.0
     }
     
-    var radius: CGFloat {
+    var circleRadius: CGFloat {
         switch amountOfShapes {
         case 1: return 10.0
         case 2: return 8.5
@@ -106,7 +113,7 @@ extension PlayingCardView {
         default: return 7.0
         }
     }
-    
+        
     func drawCircle(gridCell: CGRect) {
         let offSetX = gridCell.height < gridCell.width ? Circle.offSet : 0.0
         let offSetY = gridCell.height < gridCell.width ? 0.0 : Circle.offSet
@@ -114,7 +121,7 @@ extension PlayingCardView {
         let path = UIBezierPath()
         path.addArc(
             withCenter: CGPoint(x: gridCell.midX, y: gridCell.midY),
-            radius: radius,
+            radius: circleRadius,
             startAngle: Circle.startAngle,
             endAngle: Circle.endAngle,
             clockwise: true
@@ -129,7 +136,7 @@ extension PlayingCardView {
             newPath.addArc(
                 withCenter: CGPoint(x: gridCell.midX, y: gridCell.midY)
                     .offsetBy(dx: offSetX, dy: offSetY),
-                radius: radius,
+                radius: circleRadius,
                 startAngle: Circle.startAngle,
                 endAngle: Circle.endAngle,
                 clockwise: true
@@ -145,7 +152,7 @@ extension PlayingCardView {
             newPath.addArc(
                 withCenter: CGPoint(x: gridCell.midX, y: gridCell.midY)
                     .offsetBy(dx: -offSetX, dy: -offSetY),
-                radius: radius,
+                radius: circleRadius,
                 startAngle: Circle.startAngle,
                 endAngle: Circle.endAngle,
                 clockwise: true
@@ -162,40 +169,57 @@ extension PlayingCardView {
 
 extension PlayingCardView {
     
-    private func trianglePath(path: UIBezierPath, mid: CGPoint) {
-        path.move(to: CGPoint(x: mid.x, y: mid.y - 10))
-        path.addLine(to: CGPoint(x: mid.x, y: mid.y - 10))
-        path.addLine(to: CGPoint(x: mid.x + 10, y: mid.y))
-        path.addLine(to: CGPoint(x: mid.x - 10, y: mid.y))
-        path.close()
-        path.lineWidth = 2.5
+    private struct Triangle {
+        static let linePoint: CGFloat = 10
+        static let lineWidth: CGFloat = 2.5
+        static let offSet: CGFloat = 20.0
     }
     
-    private func drawTriangle(on view: UIView) {
-        let path = UIBezierPath()
-        let midPoint = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        path.move(to: midPoint)
-        path.addLine(to: CGPoint(x: midPoint.x + 10, y: midPoint.y + 15))
-        path.addLine(to: CGPoint(x: midPoint.x - 10, y: midPoint.y + 15))
+    private var triangleLine: CGFloat {
+        switch amountOfShapes {
+        case 1: return 10.0
+        case 2: return 8.5
+        case 3: return 7.0
+        default: return 7.0
+        }
+    }
+    
+    private var triangleOffset: CGFloat {
+        switch amountOfShapes {
+        case 1: return 0.0
+        case 2: return 19.0
+        case 3: return 17.0
+        default: return 19.0
+        }
+    }
+    
+    private func drawTriangle(path: UIBezierPath, gridCell: CGRect) {
+        path.move(to: CGPoint(x: gridCell.midX, y: gridCell.midY - triangleLine))
+        path.addLine(to: CGPoint(x: gridCell.midX, y: gridCell.midY - triangleLine))
+        path.addLine(to: CGPoint(x: gridCell.midX + triangleLine, y: gridCell.midY))
+        path.addLine(to: CGPoint(x: gridCell.midX - triangleLine, y: gridCell.midY))
         path.close()
         
-        colorPath(.green)
-                                
-//        path.move(to: CGPoint(x: 40, y: 20).offsetBy(dx: 20, dy: 0))
-//        path.addLine(to: CGPoint(x: 50, y: 60).offsetBy(dx: 20, dy: 0))
-//        path.addLine(to: CGPoint(x: 30, y: 60).offsetBy(dx: 20, dy: 0))
-//        path.close()
-//
-//        path.move(to: CGPoint(x: 40, y: 20).offsetBy(dx: -20, dy: 0))
-//        path.addLine(to: CGPoint(x: 50, y: 60).offsetBy(dx: -20, dy: 0))
-//        path.addLine(to: CGPoint(x: 30, y: 60).offsetBy(dx: -20, dy: 0))
-//        path.close()
-                
-        path.lineWidth = LineWidth.triangle
-        path.fill()
-        path.stroke()
+        let offSetX = gridCell.height < gridCell.width ? triangleOffset : 0.0
+        let offSetY = gridCell.height < gridCell.width ? 0.0 : triangleOffset
+    
+        if amountOfShapes >= 2 {
+            path.move(to: CGPoint(x: gridCell.midX, y: gridCell.midY - triangleLine).offsetBy(dx: offSetX, dy: offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX, y: gridCell.midY - triangleLine).offsetBy(dx: offSetX, dy: offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + triangleLine, y: gridCell.midY).offsetBy(dx: offSetX, dy: offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX - triangleLine, y: gridCell.midY).offsetBy(dx: offSetX, dy: offSetY))
+            path.close()
+        }
         
-//        stripedTriangle(path: path)
+        if amountOfShapes == 3 {
+            path.move(to: CGPoint(x: gridCell.midX, y: gridCell.midY - triangleLine).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX, y: gridCell.midY - triangleLine).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + triangleLine, y: gridCell.midY).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX - triangleLine, y: gridCell.midY).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.close()
+        }
+        
+        path.lineWidth = Triangle.lineWidth
     }
     
     func stripedTriangle(path: UIBezierPath) {
@@ -208,23 +232,48 @@ extension PlayingCardView {
 // MARK: - Square
 
 extension PlayingCardView {
-    func squarePath(path: UIBezierPath, mid: CGPoint) {
-//        guard shape == "square" else { return }
-        
-//        path.move(to: CGPoint(x: 80, y: 20))
-//        path.addLine(to: CGPoint(x: 110, y: 20))
-//        path.addLine(to: CGPoint(x: 110, y: 50))
-//        path.addLine(to: CGPoint(x: 80, y: 50))
-//        path.close()
-        
-        path.move(to: CGPoint(x: mid.x - Point.square, y: mid.y - Point.square))
-        path.addLine(to: CGPoint(x: mid.x + Point.square, y: mid.y - Point.square))
-        path.addLine(to: CGPoint(x: mid.x + Point.square, y: mid.y + Point.square))
-        path.addLine(to: CGPoint(x: mid.x - Point.square, y: mid.y + Point.square))
+    private struct Square {
+        static let line: CGFloat = 5.0
+        static let lineWidth: CGFloat = 3.0
+        static let offSet: CGFloat = 17.0
+    }
+    
+    var squareLine: CGFloat {
+        switch amountOfShapes {
+        case 1: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 3) : grid.cellSize.height / 3
+        case 2: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 5) : grid.cellSize.height / 5
+        case 3: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 6) : grid.cellSize.height / 6
+        default: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 6) : grid.cellSize.height / 6
+        }
+    }
+    
+    func drawSquare(with path: UIBezierPath, gridCell: CGRect) {
+        path.move(to: CGPoint(x: gridCell.midX - squareLine, y: gridCell.midY - squareLine))
+        path.addLine(to: CGPoint(x: gridCell.midX + squareLine, y: gridCell.midY - squareLine))
+        path.addLine(to: CGPoint(x: gridCell.midX + squareLine, y: gridCell.midY + squareLine))
+        path.addLine(to: CGPoint(x: gridCell.midX - squareLine, y: gridCell.midY + squareLine))
         path.close()
         
-        path.lineWidth = LineWidth.square
-//        stripedSquare(path: path)
+        let offSetX = grid.cellSize.height < grid.cellSize.width ? (squareLine * 2) : 0.0
+        let offSetY = grid.cellSize.height < grid.cellSize.width ? 0.0 : (squareLine * 2)
+        
+        if amountOfShapes >= 2 {
+            path.move(to: CGPoint(x: gridCell.midX - squareLine, y: gridCell.midY - squareLine).offsetBy(dx: offSetX, dy: offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + squareLine, y: gridCell.midY - squareLine).offsetBy(dx: offSetX, dy: offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + squareLine, y: gridCell.midY + squareLine).offsetBy(dx: offSetX, dy: offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX - squareLine, y: gridCell.midY + squareLine).offsetBy(dx: offSetX, dy: offSetY))
+            path.close()
+        }
+
+        if amountOfShapes == 3 {
+            path.move(to: CGPoint(x: gridCell.midX - squareLine, y: gridCell.midY - squareLine).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + squareLine, y: gridCell.midY - squareLine).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + squareLine, y: gridCell.midY + squareLine).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX - squareLine, y: gridCell.midY + squareLine).offsetBy(dx: -offSetX, dy: -offSetY))
+            path.close()
+        }
+        
+        path.lineWidth = Square.lineWidth
     }
     
     func stripedSquare(path: UIBezierPath, mid: CGPoint) {
@@ -241,27 +290,6 @@ extension PlayingCardView {
         path.stroke()
     }
 }
-
-// MARK: - CardView Values
-
-extension PlayingCardView {
-    private struct Point {
-        static let square: CGFloat = 5.0
-        static let triangle: CGFloat = 10.0
-        static let circleRadius: CGFloat = 10.0
-    }
-    
-    private struct LineWidth {
-        static let square: CGFloat = 3.0
-        static let triangle: CGFloat = 2.5
-        static let circle: CGFloat = 5.0
-    }
-    
-    private struct SizeRatio {
-        static let drawPathSizeToBoundsSize: CGFloat = 0.75
-    }
-}
-
 
 // MARK: - Stroke and Fill
 
