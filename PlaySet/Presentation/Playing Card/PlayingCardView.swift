@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable
 class PlayingCardView: UIView {
     
     private lazy var grid = Grid(layout: .dimensions(rowCount: gridDimension.0, columnCount: gridDimension.1), frame: bounds)
@@ -18,19 +17,18 @@ class PlayingCardView: UIView {
     
     private var gridCell: CGRect {
         guard let cell = grid[gridIndex] else { return CGRect.zero }
-        
         return cell
     }
         
-    var amountOfCells: Int = 12 { didSet { updateLayoutAndDisplay() } }
-    var color: UIColor = .green { didSet { updateLayoutAndDisplay() } }
-    var shade: String = "" { didSet { updateLayoutAndDisplay() } }
-    var shape: String = "" { didSet { updateLayoutAndDisplay() } }
-    var amountOfShapes: Int = 3 { didSet { updateLayoutAndDisplay() } }
+    var amountOfCells: Int = 81 { didSet { updateLayoutAndDisplay() } }
+    var colors = [UIColor]()
+    var shades = [String]()
+    var shapes = [String]()
+    var shapesAmount = [Int]()
     
     private func createCardView() {
         let view = UIView()
-        view.layer.borderWidth = 3.0
+        view.layer.borderWidth = 1.5
         view.layer.borderColor = UIColor.black.cgColor
         addSubview(view)
     }
@@ -64,26 +62,23 @@ class PlayingCardView: UIView {
     }
     
     func drawCardAttributes() {
-        shape = Shape.circle
-
         for index in 0...amountOfCells - 1 {
             gridIndex = index
 
-            for amount in 1...amountOfShapes {
+            colorPath()
+            
+            for amount in 1...shapesAmount[index] {
                 shapeCount = amount
-                colorPath(.green)
 
                 let path = UIBezierPath()
                 let context = UIGraphicsGetCurrentContext()
                 context?.saveGState()
                 
                 drawShapes(with: path)
-                drawStripes(with: path)
-                
+                drawShade(with: path)
+                            
                 path.lineWidth = Shape.lineWidth
-                path.fill()
                 path.stroke()
-                
                 context?.restoreGState()
             }
         }
@@ -106,12 +101,12 @@ extension PlayingCardView {
     }
     
     private var arcLine: CGPoint {
-        return CGPoint(x: gridCell.midX + shapeLine * cos(Shape.startAngle),
-                       y: gridCell.midY + shapeLine * sin(Shape.startAngle))
+        return CGPoint(x: gridCell.midX + strokeDistance * cos(Shape.startAngle),
+                       y: gridCell.midY + strokeDistance * sin(Shape.startAngle))
     }
     
     private var shapeOffSetX: CGFloat {
-        let offsetX = grid.cellSize.height < grid.cellSize.width ? shapeLine * 2 : 0.0
+        let offsetX = grid.cellSize.height < grid.cellSize.width ? strokeDistance * 2 : 0.0
         switch shapeCount {
         case 2: return offsetX
         case 3: return -offsetX
@@ -120,7 +115,7 @@ extension PlayingCardView {
     }
     
     private var shapeOffSetY: CGFloat {
-        let offsetY = grid.cellSize.height < grid.cellSize.width ? 0.0 : shapeLine * 2
+        let offsetY = grid.cellSize.height < grid.cellSize.width ? 0.0 : strokeDistance * 2
         switch shapeCount {
         case 2: return offsetY
         case 3: return -offsetY
@@ -128,8 +123,8 @@ extension PlayingCardView {
         }
     }
         
-    private var shapeLine: CGFloat {
-        switch amountOfShapes {
+    private var strokeDistance: CGFloat {
+        switch shapesAmount[gridIndex] {
         case 1: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 3) : grid.cellSize.height / 3
         case 2: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 5) : grid.cellSize.height / 5
         case 3: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 6) : grid.cellSize.height / 6
@@ -138,27 +133,26 @@ extension PlayingCardView {
     }
     
     private func drawShapes(with path: UIBezierPath) {
-        switch shape {
+        switch shapes[gridIndex] {
         case Shape.circle:
             path.move(to: arcLine.offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
             path.addArc(
                 withCenter: CGPoint(x: gridCell.midX, y: gridCell.midY).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY),
-                radius: shapeLine,
+                radius: strokeDistance,
                 startAngle: Shape.startAngle,
                 endAngle: Shape.endAngle,
                 clockwise: true
             )
         case Shape.square:
-            path.move(to: CGPoint(x: gridCell.midX - shapeLine, y: gridCell.midY - shapeLine).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
-            path.addLine(to: CGPoint(x: gridCell.midX + shapeLine, y: gridCell.midY - shapeLine).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
-            path.addLine(to: CGPoint(x: gridCell.midX + shapeLine, y: gridCell.midY + shapeLine).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
-            path.addLine(to: CGPoint(x: gridCell.midX - shapeLine, y: gridCell.midY + shapeLine).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
+            path.move(to: CGPoint(x: gridCell.midX - strokeDistance, y: gridCell.midY - strokeDistance).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + strokeDistance, y: gridCell.midY - strokeDistance).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + strokeDistance, y: gridCell.midY + strokeDistance).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX - strokeDistance, y: gridCell.midY + strokeDistance).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
             path.close()
         case Shape.triangle:
-            path.move(to: CGPoint(x: gridCell.midX, y: gridCell.midY - shapeLine).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
-            path.addLine(to: CGPoint(x: gridCell.midX, y: gridCell.midY - shapeLine).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
-            path.addLine(to: CGPoint(x: gridCell.midX + shapeLine, y: gridCell.midY).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
-            path.addLine(to: CGPoint(x: gridCell.midX - shapeLine, y: gridCell.midY).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
+            path.move(to: CGPoint(x: gridCell.midX, y: gridCell.midY - strokeDistance).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX + strokeDistance, y: gridCell.midY + strokeDistance / 2).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
+            path.addLine(to: CGPoint(x: gridCell.midX - strokeDistance, y: gridCell.midY + strokeDistance / 2).offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
             path.close()
         default: return
         }
@@ -179,14 +173,21 @@ extension PlayingCardView {
         }
     }
     
-    func filledPath(path: UIBezierPath) {
-        path.fill()
-        path.stroke()
+    func colorPath() {
+        if (shades[gridIndex] ==  "filled") {
+            UIColor.purple.setStroke()
+        } else {
+            colors[gridIndex].setStroke()
+        }
+        colors[gridIndex].setFill()
     }
     
-    func colorPath(_ color: UIColor) {
-        color.setFill()
-        UIColor.purple.setStroke()
+    func drawShade(with path: UIBezierPath) {
+        switch shades[gridIndex] {
+        case "filled": path.fill()
+        case "striped": drawStripes(with: path)
+        default: return
+        }
     }
 }
 
@@ -203,8 +204,8 @@ extension PlayingCardView {
         }
     }
     
-    func createGridLayout() {
-        for _ in 0...amountOfCells - 1 {
+    func createGridLayout(amount: Int) {
+        for _ in 0...amount - 1 {
             createCardView()
         }
     }

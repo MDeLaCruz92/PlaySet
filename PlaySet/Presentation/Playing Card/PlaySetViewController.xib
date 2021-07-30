@@ -25,6 +25,10 @@
                     <rect key="frame" x="16" y="60" width="343" height="652"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="lzP-4T-bMU" appends="YES" id="DkK-Dk-AYZ"/>
+                    </connections>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pcK-Nm-Gj9">
                     <rect key="frame" x="16" y="728" width="343" height="30"/>
@@ -72,7 +76,12 @@
                 <constraint firstItem="u5I-Xq-441" firstAttribute="trailing" secondItem="pcK-Nm-Gj9" secondAttribute="trailing" constant="16" id="nFg-sF-8tu"/>
                 <constraint firstItem="pcK-Nm-Gj9" firstAttribute="leading" secondItem="u5I-Xq-441" secondAttribute="leading" constant="16" id="z0c-ne-C6j"/>
             </constraints>
-            <point key="canvasLocation" x="-766" y="-24"/>
+            <point key="canvasLocation" x="-953" y="-28"/>
         </view>
+        <tapGestureRecognizer id="lzP-4T-bMU">
+            <connections>
+                <action selector="selectCard:" destination="-1" id="0GH-CG-j1y"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

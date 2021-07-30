@@ -14,7 +14,6 @@
 		00473D1221F3F71E00B3F471 /* PlayingViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D1121F3F71D00B3F471 /* PlayingViewDemo.swift */; };
 		00473D1421F3F93100B3F471 /* PlaySetViewDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00473D1321F3F93100B3F471 /* PlaySetViewDemo.xib */; };
 		00473D1621F4736100B3F471 /* PlaySetViewControllerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00473D1521F4736100B3F471 /* PlaySetViewControllerDemo.swift */; };
-		821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F20C121928520008DEC47 /* UIButton+Extension.swift */; };
 		8253DA02215994A700684C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253DA01215994A700684C13 /* AppDelegate.swift */; };
 		8253DA09215994AA00684C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA08215994AA00684C13 /* Assets.xcassets */; };
 		8253DA0C215994AA00684C13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8253DA0A215994AA00684C13 /* LaunchScreen.storyboard */; };
@@ -32,7 +31,6 @@
 		00473D1121F3F71D00B3F471 /* PlayingViewDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewDemo.swift; sourceTree = "<group>"; };
 		00473D1321F3F93100B3F471 /* PlaySetViewDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaySetViewDemo.xib; sourceTree = "<group>"; };
 		00473D1521F4736100B3F471 /* PlaySetViewControllerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySetViewControllerDemo.swift; sourceTree = "<group>"; };
-		821F20C121928520008DEC47 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		8253D9FE215994A700684C13 /* PlaySet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaySet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8253DA01215994A700684C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8253DA08215994AA00684C13 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				82E0CF7E216A7A890097198C /* UIView+Extension.swift */,
-				821F20C121928520008DEC47 /* UIButton+Extension.swift */,
 				00473D0021EBB32B00B3F471 /* Int+Extension.swift */,
 			);
 			path = Extensions;
@@ -235,7 +232,6 @@
 				82E0CF6D2169767F0097198C /* PlaySetViewController.swift in Sources */,
 				82E0CF81216AE7950097198C /* PlayingCard.swift in Sources */,
 				00473D0621EC043600B3F471 /* Grid.swift in Sources */,
-				821F20C221928520008DEC47 /* UIButton+Extension.swift in Sources */,
 				00473D0421EBB43D00B3F471 /* PlayingCardView.swift in Sources */,
 				00473D1621F4736100B3F471 /* PlaySetViewControllerDemo.swift in Sources */,
 				82E0CF7F216A7A890097198C /* UIView+Extension.swift in Sources */,

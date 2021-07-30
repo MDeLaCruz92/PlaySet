@@ -24,7 +24,7 @@ struct PlayingCard: Equatable, CustomStringConvertible {
     }
     
     enum Amount: Int, CaseIterable {
-        case one
+        case one = 1
         case two
         case three
     }
@@ -32,7 +32,7 @@ struct PlayingCard: Equatable, CustomStringConvertible {
     enum Shading: String, CaseIterable {
         case filled
         case notFilled
-        case striped // will be striped later
+        case striped
     }
     
     enum Color: String,  CaseIterable {

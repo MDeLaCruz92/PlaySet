@@ -20,30 +20,37 @@ class PlaySetViewController: UIViewController {
     private let dealCardsAmount = 3
     
     private var deck = PlayingCardDeck()
-    private var selectedCardButtons = Set<UIButton>()
+    private var selectedCardViews = Set<UIView>()
+    private var startingCardViews = [UIView]()
+    private var remainingCardViews = [UIView]()
     
     // MARK: Action Methods
     
-    @IBAction func touchCard(_ sender: UIButton) {
-        handleMatchedCardsState()
-        handleDealCardsButtonState()
-        
-//        if let cardNumber = cardButtons.firstIndex(of: sender) {
-//            deck.chooseCard(at: cardNumber)
-//            cardSelectionResult(button: sender)
-//        }
+    @IBAction func selectCard(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            handleMatchedCardsState()
+            handleDealCardsViewState()
+            
+            let viewLocation = sender.location(in: playingCardView)
+            
+            for (index, tappedView) in playingCardView.subviews.enumerated() {
+                 if tappedView.frame.contains(viewLocation) {
+                    deck.chooseCard(at: index)
+                    cardSelectionResult(view: tappedView)
+                }
+            }
+        }
     }
     
     @IBAction func dealCardsButton(_ sender: UIButton) {
         if deck.cardsAreMatched {
             handleMatchedCardsState()
         } else {
-//            deck.penalizeDrawing(visibleCards: cardButtons.filter { $0.isHidden == false }.count)
-//            dealFromRemainingCards()
+            deck.penalizeDrawing(visibleCards: playingCardView.subviews.filter { $0.isHidden == false }.count)
+            dealFromRemainingCards()
             scoreLabel.text = "Score: \(deck.scoreCount)"
         }
-        
-        handleDealCardsButtonState()
+        handleDealCardsViewState()
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
@@ -55,19 +62,17 @@ class PlaySetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
-        deck.setupGameDeck(amountOfCards: 81)
         updateViewFromModel()
     }
     
     // MARK: Private methods
     
-    private func cardSelectionResult(button: UIButton) {
+    private func cardSelectionResult(view: UIView) {
         deselectAllCardsIfNescessary()
         
-        if selectedCardButtons.contains(button) {
-            button.applyTouchDeselectionUI()
-            selectedCardButtons.remove(button)
+        if selectedCardViews.contains(view) {
+            view.applyTouchDeselectionUI()
+            selectedCardViews.remove(view)
             if deck.selectedCardsIndex.count > 0 {
                 deck.selectedCardsIndex.removeLast()
             }
@@ -75,61 +80,55 @@ class PlaySetViewController: UIViewController {
                 deck.scoreCount -= 1
                 scoreLabel.text = "Score: \(deck.scoreCount)"
             }
-        } else if selectedCardButtons.count < selectionLimit {
-            button.applyTouchSelectionUI()
-            selectedCardButtons.insert(button)
+        } else if selectedCardViews.count < selectionLimit {
+            view.applyTouchSelectionUI()
+            selectedCardViews.insert(view)
         }
-        
-        handleDealCardsButtonState()
+        handleDealCardsViewState()
     }
     
-    private func handleDealCardsButtonState() {
-        if selectedCardButtons.count == selectionLimit
+    private func handleDealCardsViewState() {
+        if selectedCardViews.count == selectionLimit
             && deck.cardsAreMatched
             && !deck.deckOfCards.isEmpty {
-            dealCardsButton.enableButton()
+            dealCardsButton.enableView()
         } else if deck.deckOfCards.isEmpty || noRoomToFitCards() {
-            dealCardsButton.disableButton()
+            dealCardsButton.disableView()
         }
     }
     
     private func noRoomToFitCards() -> Bool {
-//        return cardButtons.allSatisfy({$0.isHidden == false })
-        return false
+        return playingCardView.subviews.allSatisfy({$0.isHidden == false })
     }
     
-//    private func dealFromRemainingCards() {
-//        var count = 0
-//        remainingCardsButtons.forEach { button in
-//            if count < dealCardsAmount {
-//                if button.isHidden {
-//                    button.isHidden = false
-//                    count += 1
-//                }
-//            }
-//        }
-//        count = 0
-//    }
+    private func dealFromRemainingCards() {
+        var count = 0
+        remainingCardViews.forEach { view in
+            if count < dealCardsAmount {
+                if view.isHidden {
+                    view.isHidden = false
+                    count += 1
+                }
+            }
+        }
+        count = 0
+    }
     
     private func deselectAllCardsIfNescessary() {
-        if selectedCardButtons.count == selectionLimit {
+        if selectedCardViews.count == selectionLimit {
             resetCardsTouchSelection()
         }
     }
     
     private func setupUI() {
         view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-//        playingCardView.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-//        cardButtons.forEach { $0.setupButtonUI() }
-//        remainingCardsButtons.forEach { $0.isHidden = true }
-        
-//        playingCardView.createGridLayout()
+        remainingCardViews.forEach { $0.isHidden = true }
     }
     
     private func handleOutOfCardsState() {
         if deck.deckOfCards.isEmpty {
             deck.selectedCardsIndex.forEach { index in
-//                cardButtons[index].disableButton()
+                playingCardView.subviews[index].disableView()
             }
         }
     }
@@ -154,60 +153,55 @@ class PlaySetViewController: UIViewController {
     }
 
     private func updateViewFromModel() {
-//        for (index, button)  in cardButtons.enumerated() {
-//            let card = deck.gameDeck[index]
-//            let cardAttributedString = NSAttributedString(string: deck.setupCardShapeAmount(card), attributes: setupCardAttributes(card))
-//            button.setAttributedTitle(cardAttributedString, for: .normal)
-//        }
-        
-        playingCardView.amountOfCells = deck.gameDeck.count
-        playingCardView.createGridLayout()
+        deck.setupGameDeck(amountOfCards: 81)
+        playingCardView.createGridLayout(amount: deck.gameDeck.count)
+        setupCardAttributes()
     }
     
     private func setupCardAttributes() {
-        for _ in 0...deck.gameDeck.count {
+        for (index, _) in playingCardView.subviews.enumerated() {
+            let card = deck.gameDeck[index]
+            print("card: \(card)")
             
-        }
-    }
-    
-    private func setupCardAttributes(_ card: PlayingCard) -> [NSAttributedString.Key : Any]   {
-        let cardFadedAttributes: [NSAttributedString.Key : Any] = [.foregroundColor : setupCardColor(card).withAlphaComponent(0.30)]
-        let cardFilledAttributes: [NSAttributedString.Key : Any] = [.foregroundColor: setupCardColor(card).withAlphaComponent(1)]
-        let cardNotFilledAttributes: [NSAttributedString.Key : Any] = [
-            .strokeColor: setupCardColor(card),
-            .strokeWidth: 10.0
-        ]
-        
-        switch card.shading {
-        case .striped: return cardFadedAttributes
-        case .filled: return cardFilledAttributes
-        case .notFilled: return cardNotFilledAttributes
-        }
-    }
-    
-    private func setupCardColor(_ card: PlayingCard) -> UIColor {
-        switch card.color {
-        case .blue: return UIColor.blue
-        case .green: return UIColor.green
-        case .red: return UIColor.red
+            switch card.shading {
+            case .striped: playingCardView.shades.append(card.shading.rawValue)
+            case .filled:  playingCardView.shades.append(card.shading.rawValue)
+            case .notFilled: playingCardView.shades.append(card.shading.rawValue)
+            }
+            
+            switch card.shape {
+            case .circle: playingCardView.shapes.append(card.shape.rawValue)
+            case .square: playingCardView.shapes.append(card.shape.rawValue)
+            case .triangle: playingCardView.shapes.append(card.shape.rawValue)
+            }
+            
+            switch card.amount {
+            case .one: playingCardView.shapesAmount.append(card.amount.rawValue)
+            case .two: playingCardView.shapesAmount.append(card.amount.rawValue)
+            case .three: playingCardView.shapesAmount.append(card.amount.rawValue)
+            }
+            
+            switch card.color {
+            case .blue: playingCardView.colors.append(.blue)
+            case .green: playingCardView.colors.append(.green)
+            case .red: playingCardView.colors.append(.red)
+            }
         }
     }
     
     private func resetCardsTouchSelection() {
-        selectedCardButtons.forEach { $0.applyTouchDeselectionUI() }
-        selectedCardButtons = []
+        selectedCardViews.forEach { $0.applyTouchDeselectionUI() }
+        selectedCardViews = []
     }
     
     private func startNewGame() {
-        playingCardView.amountOfCells = 81
-        dealCardsButton.enableButton()
-//        cardButtons.forEach { $0.enableButton() }
-//        remainingCardsButtons.forEach { $0.isHidden = true }
+        playingCardView.amountOfCells = 12
+        dealCardsButton.enableView()
+        playingCardView.subviews.forEach { $0.enableView() }
+        remainingCardViews.forEach { $0.isHidden = true }
         resetCardsTouchSelection()
         deck = PlayingCardDeck()
         deck.resetSelectedCards()
-//        deck.setupGameDeck(amountOfCards: cardButtons.count)
-        updateViewFromModel()
+        deck.setupGameDeck(amountOfCards: playingCardView.amountOfCells)
     }
-
 }
