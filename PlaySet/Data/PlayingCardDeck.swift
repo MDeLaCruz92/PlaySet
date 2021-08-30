@@ -10,12 +10,12 @@ import Foundation
 
 struct PlayingCardDeck {
     
-    var selectedCardsIndex = [Int]()
     var scoreCount = 0
+    var selectedCards = [PlayingCard]()
+    var gameDeck = [PlayingCard]()
+    private(set) var cardsAreMatched = false
     
     private(set) var deckOfCards = [PlayingCard]()
-    private(set) var gameDeck = [PlayingCard]()
-    private(set) var cardsAreMatched = false
     
     private var date = Date()
     private var currentDate: Date { return Date() }
@@ -82,16 +82,22 @@ struct PlayingCardDeck {
     }
     
     mutating func resetSelectedCards() {
-        selectedCardsIndex.forEach { index in
+        selectedCards.forEach { selectedCard in
+            guard let index = gameDeck.firstIndex(of: selectedCard) else { return }
             gameDeck[index].cardState = .notSelected
         }
-        selectedCardsIndex.removeAll()
+        selectedCards.removeAll()
+        
+        cardsAreMatched = false
     }
     
     mutating func replaceMatchedCards() {
-        selectedCardsIndex.forEach { index in
+        selectedCards.forEach { selectedCard in
+            guard let index = gameDeck.firstIndex(of: selectedCard) else { return }
             if let card = draw() {
                 gameDeck[index] = card
+            } else {
+                gameDeck.remove(at: index)
             }
         }
         cardsAreMatched = false
@@ -114,8 +120,8 @@ struct PlayingCardDeck {
             gameDeck[index].cardState = .notSelected
         } else {
             gameDeck[index].cardState = .selected
-            if !selectedCardsIndex.contains(index) {
-                selectedCardsIndex.append(index)
+            if !selectedCards.contains(gameDeck[index]) {
+                selectedCards.append(gameDeck[index])
             }
         }
         let selectedCards = gameDeck.filter { $0.cardState == .selected }
@@ -178,5 +184,4 @@ struct PlayingCardDeck {
         let shape = cards.compactMap { $0.shape }
         return featureMatchState(allTrue: shape[0] == shape[1] && shape[1] == shape[2], allFalse: shape[0] != shape[1] && shape[1] != shape[2] && shape[0] != shape[2])
     }
-    
 }

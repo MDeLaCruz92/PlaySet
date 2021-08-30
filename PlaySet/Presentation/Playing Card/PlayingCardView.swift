@@ -20,11 +20,15 @@ class PlayingCardView: UIView {
         return cell
     }
         
-    var amountOfCells: Int = 81 { didSet { updateLayoutAndDisplay() } }
-    var colors = [UIColor]()
-    var shades = [String]()
-    var shapes = [String]()
-    var shapesAmount = [Int]()
+    var amountOfCells: Int = 12 { didSet { updateLayoutAndDisplay() } }    
+    var attributes = [Attributes]()
+    
+    struct Attributes {
+        var color: UIColor
+        var shade: String
+        var shape: String
+        var amount: Int
+    }
     
     private func createCardView() {
         let view = UIView()
@@ -43,7 +47,7 @@ class PlayingCardView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        grid.frame = bounds
+        grid = Grid(layout: .dimensions(rowCount: gridDimension.0, columnCount: gridDimension.1), frame: bounds)
         
         for index in 0...amountOfCells - 1 {
             if let gridCell = grid[index] {
@@ -66,8 +70,8 @@ class PlayingCardView: UIView {
             gridIndex = index
 
             colorPath()
-            
-            for amount in 1...shapesAmount[index] {
+                        
+            for amount in 1...attributes[index].amount {
                 shapeCount = amount
 
                 let path = UIBezierPath()
@@ -124,7 +128,7 @@ extension PlayingCardView {
     }
         
     private var strokeDistance: CGFloat {
-        switch shapesAmount[gridIndex] {
+        switch attributes[gridIndex].amount {
         case 1: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 3) : grid.cellSize.height / 3
         case 2: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 5) : grid.cellSize.height / 5
         case 3: return grid.cellSize.height > grid.cellSize.width ? (grid.cellSize.width / 6) : grid.cellSize.height / 6
@@ -133,7 +137,7 @@ extension PlayingCardView {
     }
     
     private func drawShapes(with path: UIBezierPath) {
-        switch shapes[gridIndex] {
+        switch attributes[gridIndex].shape {
         case Shape.circle:
             path.move(to: arcLine.offsetBy(dx: shapeOffSetX, dy: shapeOffSetY))
             path.addArc(
@@ -174,16 +178,16 @@ extension PlayingCardView {
     }
     
     func colorPath() {
-        if (shades[gridIndex] ==  "filled") {
+        if (attributes[gridIndex].shade ==  "filled") {
             UIColor.purple.setStroke()
         } else {
-            colors[gridIndex].setStroke()
+            attributes[gridIndex].color.setStroke()
         }
-        colors[gridIndex].setFill()
+        attributes[gridIndex].color.setFill()
     }
     
     func drawShade(with path: UIBezierPath) {
-        switch shades[gridIndex] {
+        switch attributes[gridIndex].shade {
         case "filled": path.fill()
         case "striped": drawStripes(with: path)
         default: return
