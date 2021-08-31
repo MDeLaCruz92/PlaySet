@@ -80,8 +80,13 @@
         </view>
         <tapGestureRecognizer id="lzP-4T-bMU">
             <connections>
-                <action selector="selectCard:" destination="-1" id="0GH-CG-j1y"/>
+                <action selector="selectCard:" destination="-1" id="gyF-Th-cH3"/>
             </connections>
         </tapGestureRecognizer>
+        <swipeGestureRecognizer direction="right" id="wU7-8v-wh6">
+            <connections>
+                <action selector="dealCards:" destination="-1" id="8k4-aM-JAw"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
 </document>

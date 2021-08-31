@@ -28,7 +28,7 @@ class PlaySetViewController: UIViewController {
     @IBAction func selectCard(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             handleMatchedCardsState()
-            handleDealCardsViewState()
+            dealCardsButtonVisiblity()
             
             let viewLocation = sender.location(in: playingCardView)
             
@@ -43,15 +43,16 @@ class PlaySetViewController: UIViewController {
         }
     }
     
-    @IBAction func dealCardsButton(_ sender: UIButton) {
-        if deck.cardsAreMatched {
-            handleMatchedCardsState()
-        } else {
-            deck.penalizeDrawing(visibleCards: playingCardView.subviews.count)
-            dealFromRemainingCards()
-            scoreLabel.text = "Score: \(deck.scoreCount)"
+    @IBAction func dealCards(_ sender: UISwipeGestureRecognizer) {
+        sender.direction = .down
+        
+        if sender.state == .ended {
+            handleDealCardsState()
         }
-        handleDealCardsViewState()
+    }
+    
+    @IBAction func dealCardsButton(_ sender: UIButton) {
+        handleDealCardsState()
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
@@ -68,6 +69,17 @@ class PlaySetViewController: UIViewController {
     
     // MARK: Private methods
     
+    private func handleDealCardsState() {
+        if deck.cardsAreMatched {
+            handleMatchedCardsState()
+        } else {
+            deck.penalizeDrawing(visibleCards: playingCardView.subviews.count)
+            dealFromRemainingCards()
+            scoreLabel.text = "Score: \(deck.scoreCount)"
+        }
+        dealCardsButtonVisiblity()
+    }
+     
     private func cardSelectionResult(view: UIView) {
         deselectAllCardsIfNescessary()
         
@@ -85,10 +97,10 @@ class PlaySetViewController: UIViewController {
             view.applyTouchSelectionUI()
             selectedCardViews.insert(view)
         }
-        handleDealCardsViewState()
+        dealCardsButtonVisiblity()
     }
     
-    private func handleDealCardsViewState() {
+    private func dealCardsButtonVisiblity() {
         if selectedCardViews.count == selectionLimit
             && deck.cardsAreMatched
             && !deck.deckOfCards.isEmpty {
