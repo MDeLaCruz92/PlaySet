@@ -135,8 +135,6 @@ class PlaySetViewController: UIViewController {
         if deck.cardsAreMatched {
 
             swapMatchedCards()
-            
-            deck.replaceMatchedCards()
             resetCardsTouchSelection()
         }
         scoreLabel.text = "Score: \(deck.scoreCount)"
@@ -190,12 +188,17 @@ class PlaySetViewController: UIViewController {
     }
     
     private func startNewGame() {
-        playingCardView.amountOfCells = startingAmountOfCards
-        dealCardsButton.enableView()
-        playingCardView.subviews.forEach { $0.enableView() }
+        // first, reset touch state and enable the dealCardsButton back if necessary
         resetCardsTouchSelection()
+        dealCardsButton.enableView()
+        
+        // second, remove the subviews from playingCardView, reset the amountOfCells back to starting, then empty out the attributes
+        playingCardView.subviews.forEach { $0.removeFromSuperview() }
+        playingCardView.amountOfCells = startingAmountOfCards
+        playingCardView.attributes = []
+        
+        // third, reset the deck, then call updateViewFromModel()
         deck = PlayingCardDeck()
-        deck.resetSelectedCards()
-        deck.setupGameDeck(amountOfCards: playingCardView.amountOfCells)
+        updateViewFromModel()
     }
 }
